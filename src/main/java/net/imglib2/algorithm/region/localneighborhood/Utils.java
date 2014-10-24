@@ -26,43 +26,12 @@
 
 package net.imglib2.algorithm.region.localneighborhood;
 
-import net.imglib2.meta.Axes;
-import net.imglib2.meta.CalibratedAxis;
-import net.imglib2.meta.CalibratedSpace;
-import net.imglib2.util.Util;
-
 /**
  * Util class made of static methods, meant to simplify the writing of special cursors.
  * @author Jean-Yves Tinevez <jeanyves.tinevez@gmail.com> Sep 9, 2010
  */
 public class Utils {
-	
-	
-	/**
-	 * Return the xyz calibration stored in a {@link CalibratedSpace} in a
-	 * 3-elements double array. Calibration is ordered as X, Y, Z. If one axis is
-	 * not found, then the calibration for this axis takes the value of 1.
-	 */
-	public static final double[] getSpatialCalibration(
-		final CalibratedSpace<?> space)
-	{
-		final double[] calibration = Util.getArrayFromValue(1d, 3);
-		for (int d = 0; d < space.numDimensions(); d++) {
-			final CalibratedAxis axis = space.axis(d);
-			// TODO - using averageScale() introduces error for nonlinear axes
-			final double scale = space.averageScale(d);
-			if (axis.type() == Axes.X) {
-				calibration[0] = scale;
-			} else if (axis.type() == Axes.Y) {
-				calibration[1] = scale;
-			} else if (axis.type() == Axes.Z) {
-				calibration[2] = scale;
-			}
-		}
-		return calibration;
-	}
 
-	
 	/** 
 	 * Store the half-widths of a X line to scan to fill an ellipse of given axis lengths.
 	 * The parameter <code>a</code> is the axis half-length in the X direction, and <code>b</code>
