@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>net.imglib2</groupId>
 		<artifactId>pom-imglib2</artifactId>
-		<version>4.1</version>
+		<version>5.0</version>
 	</parent>
 
 	<artifactId>imglib2-algorithm-gpl</artifactId>
@@ -48,6 +48,13 @@
 		<dependency>
 			<groupId>mpicbg</groupId>
 			<artifactId>mpicbg</artifactId>
+			<version>0.6.1</version>
+			<exclusions>
+				<exclusion>
+					<groupId>jama</groupId>
+					<artifactId>jama</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- Third-party dependencies -->
@@ -55,10 +62,6 @@
 			<groupId>edu.mines</groupId>
 			<artifactId>mines-jtk</artifactId>
 			<version>20100113</version>
-		</dependency>
-		<dependency>
-			<groupId>gov.nist.math</groupId>
-			<artifactId>jama</artifactId>
 		</dependency>
 
 		<!-- Test dependencies -->
