@@ -11,7 +11,7 @@
 	<artifactId>imglib2-algorithm-gpl</artifactId>
 	<version>0.1.3-SNAPSHOT</version>
 
-	<name>ImgLib2 Algorithms (GPL)</name>
+	<name>ImgLib2 Algorithms: GPL</name>
 	<description>Useful image processing algorithms, licensed under the GPL.</description>
 	<licenses>
 		<license>
