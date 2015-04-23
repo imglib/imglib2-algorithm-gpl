@@ -544,7 +544,7 @@ public class FFTConvolution< R extends RealType< R > >
 		// inverse FFT in place
 		FFT.complexToRealUnpad( fftconvolved, output, s );
 		
-		if ( service == null ) { 
+		if ( service != null ) { 
 			// shutdown own self created service
 			s.shutdown();
 		}
