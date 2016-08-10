@@ -43,7 +43,7 @@ import net.imglib2.img.Img;
 import net.imglib2.type.numeric.RealType;
 
 /**
- * @author Jean-Yves Tinevez (tinevez@pasteur.fr) - 2013
+ * @author Jean-Yves Tinevez - 2013
  */
 public class PeakFitter <T extends RealType<T>> implements MultiThreaded, OutputAlgorithm<Map<Localizable, double[]>>, Benchmark {
 

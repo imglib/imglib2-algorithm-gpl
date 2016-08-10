@@ -53,7 +53,7 @@ import net.imglib2.Localizable;
  * </pre>
  * 
  * @see EllipticGaussianOrtho
- * @author Jean-Yves Tinevez <jeanyves.tinevez@gmail.com> - 2013
+ * @author Jean-Yves Tinevez - 2013
  * 
  */
 public class MLEllipticGaussianEstimator implements StartPointEstimator {

@@ -70,7 +70,7 @@ import net.imglib2.Sampler;
  * compute ellipse bounds efficiently. It makes intensive use of states to avoid
  * calling the {@link Math#sqrt(double)} method.
  * 
- * @author Jean-Yves Tinevez (jeanyves.tinevez@gmail.com) - August, 2010 - 2012
+ * @author Jean-Yves Tinevez - August, 2010 - 2012
  * @see EllipsoidNeighborhood
  * 
  * @param <T>

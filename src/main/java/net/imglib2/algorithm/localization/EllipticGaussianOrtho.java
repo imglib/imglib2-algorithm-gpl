@@ -42,7 +42,7 @@ package net.imglib2.algorithm.localization;
  * <pre>S = ∑ bᵢ × (xᵢ - x₀ᵢ)² </pre>
  * 
  *
- * @author Jean-Yves Tinevez <jeanyves.tinevez@gmail.com> 2012
+ * @author Jean-Yves Tinevez 2012
  */
 public class EllipticGaussianOrtho implements FitFunction {
 

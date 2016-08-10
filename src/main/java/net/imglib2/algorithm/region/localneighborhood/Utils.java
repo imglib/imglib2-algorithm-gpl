@@ -29,7 +29,7 @@ package net.imglib2.algorithm.region.localneighborhood;
 
 /**
  * Util class made of static methods, meant to simplify the writing of special cursors.
- * @author Jean-Yves Tinevez <jeanyves.tinevez@gmail.com> Sep 9, 2010
+ * @author Jean-Yves Tinevez Sep 9, 2010
  */
 public class Utils {
 

@@ -62,7 +62,7 @@ import net.imglib2.view.Views;
  *            - {@link RealType} of the image
  * @param <S>
  *            - {@link RealType} of the kernel
- * @author Stephan Preibisch (stephan.preibisch@gmx.de)
+ * @author Stephan Preibisch
  * @deprecated use {@link net.imglib2.algorithm.fft2.FFTConvolution} instead
  */
 @Deprecated

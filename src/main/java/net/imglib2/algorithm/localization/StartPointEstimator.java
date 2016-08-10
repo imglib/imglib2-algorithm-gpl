@@ -49,7 +49,7 @@ import net.imglib2.Localizable;
  * the meaning and order of each element in the returned array is the same as the
  * one expected by the curve fitter that will be used downstream.
  * 
- * @author Jean-Yves Tinevez <jeanyves.tinevez@gmail.com> - 2013
+ * @author Jean-Yves Tinevez - 2013
  */
 public interface StartPointEstimator {
 	

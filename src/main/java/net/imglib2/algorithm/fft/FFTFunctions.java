@@ -51,7 +51,7 @@ import net.imglib2.view.Views;
  * 
  * Unfortunately only supports a maximal size of INT in each dimension as the one-dimensional FFT is based on arrays.
  * 
- * @author Stephan Preibisch (stephan.preibisch@gmx.de)
+ * @author Stephan Preibisch
  * @deprecated use {@link net.imglib2.algorithm.fft2.FFTMethods} instead
  */
 @Deprecated

@@ -71,7 +71,7 @@ import net.imglib2.view.Views;
  * <code>Dxx, Dxy, Dyy</code>
  * 
  * 
- * @author Jean-Yves Tinevez <jeanyves.tinevez@gmail.com> Mar 30, 2012
+ * @author Jean-Yves Tinevez Mar 30, 2012
  * 
  * @param <T>
  */

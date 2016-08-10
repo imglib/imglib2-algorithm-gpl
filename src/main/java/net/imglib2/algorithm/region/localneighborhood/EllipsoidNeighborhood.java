@@ -46,7 +46,7 @@ import net.imglib2.outofbounds.OutOfBoundsPeriodicFactory;
  * {@link AbstractNeighborhood#span} array are considered.
  * 
  * @see EllipsoidCursor
- * @author Jean-Yves Tinevez (jeanyves.tinevez@gmail.com) - 2012
+ * @author Jean-Yves Tinevez - 2012
  * 
  * @param <T>
  */

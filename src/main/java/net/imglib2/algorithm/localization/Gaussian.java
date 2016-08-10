@@ -51,7 +51,7 @@ package net.imglib2.algorithm.localization;
  * S = b × ∑ (xᵢ - x₀ᵢ)²
  * </pre>
  * 
- * @author Jean-Yves Tinevez <jeanyves.tinevez@gmail.com> - 2013
+ * @author Jean-Yves Tinevez - 2013
  */
 public class Gaussian implements FitFunction {
 

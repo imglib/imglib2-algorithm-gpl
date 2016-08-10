@@ -34,7 +34,7 @@ package net.imglib2.algorithm.localization;
  * Use this when you want to rely solely on 
  * {@link StartPointEstimator} results and skip the extra curve fitting step. 
  * 
- * @author Jean-Yves Tinevez <jeanyves.tinevez@gmail.com> - 2013
+ * @author Jean-Yves Tinevez - 2013
  */
 public class DummySolver implements FunctionFitter {
 

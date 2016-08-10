@@ -39,7 +39,7 @@ import Jama.Matrix;
  * It was adapted and stripped from jplewis (www.idiom.com/~zilla) and released under 
  * the GPL. There are various small tweaks for robustness and speed.
  *
- * @author Jean-Yves Tinevez <jeanyves.tinevez@gmail.com> 2011 - 2013
+ * @author Jean-Yves Tinevez 2011 - 2013
  */
 public class LevenbergMarquardtSolver implements FunctionFitter {
 	

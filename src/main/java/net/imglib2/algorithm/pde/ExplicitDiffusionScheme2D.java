@@ -36,7 +36,7 @@ import net.imglib2.type.numeric.real.FloatType;
 /**
  * An abstract class for the 2D solvers of the diffusion equation. 
  * 
- * @author Jean-Yves Tinevez <jeanyves.tinevez@gmail.com> Mar-April, 2012
+ * @author Jean-Yves Tinevez Mar-April, 2012
  */
 public abstract class ExplicitDiffusionScheme2D<T extends RealType<T>> extends ExplicitDiffusionScheme<T> {
 

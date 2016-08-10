@@ -40,8 +40,8 @@ import net.imglib2.type.Type;
  * @author Stephan Preibisch
  * @author Stephan Saalfeld
  * @author Benjamin Schmid
- * @author Tobias Pietzsch <tobias.pietzsch@gmail.com>
- * @author Christian Dietz <christian.dietz@uni-konstanz.de>
+ * @author Tobias Pietzsch
+ * @author Christian Dietz
  */
 public class BufferedRectangularNeighborhoodCursor<T extends Type<T>> extends
 		AbstractNeighborhoodCursor<T> {

@@ -42,7 +42,7 @@ import net.imglib2.view.Views;
  * the {@link PhaseCorrelation}.
  * 
  * 
- * @author Stephan Saalfeld <saalfeld@mpi-cbg.de>
+ * @author Stephan Saalfeld
  * @deprecated use {@link net.imglib2.algorithm.fft2.FFT} instead
  */
 @Deprecated

@@ -48,7 +48,7 @@ import net.imglib2.RandomAccessible;
  * Adapted from the <code>Bresenham3D</code> class in VIB-lib by Johannes
  * Schindelin.
  * 
- * @author Jean-Yves Tinevez <jeanyves.tinevez@gmail.com> Apr, 2012
+ * @author Jean-Yves Tinevez Apr, 2012
  * @param <T>
  */
 public class BresenhamLine< T > implements Cursor< T >

@@ -46,7 +46,7 @@ import net.imglib2.type.numeric.RealType;
  * 
  * @param <T> - the output, {@link RealType}
  * @param <S> - the input, {@link ComplexType}
- * @author Stephan Preibisch (stephan.preibisch@gmx.de)
+ * @author Stephan Preibisch
  * @deprecated use {@link net.imglib2.algorithm.fft2.FFT} instead
  */
 @Deprecated
