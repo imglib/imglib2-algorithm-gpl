@@ -58,8 +58,8 @@ public class ImageTransform<T extends Type<T>> implements OutputAlgorithm<Random
 	ImgFactory<T> outputImageFactory;
 	
 	final long[] newDim;
-	final float[] offset;
-	
+	final double[] offset;
+
 	Img<T> transformed;
 	String errorMessage = "";
 	
@@ -86,22 +86,17 @@ public class ImageTransform<T extends Type<T>> implements OutputAlgorithm<Random
 		//
 		// first determine new min-max in all dimensions of the image
 		// by transforming all the corner-points
-		//	
-		
-		float[] min = new float[ numDimensions ];
-		float[] max = new float[ numDimensions ];
+		//
+		final double[] min = new double[ numDimensions ];
+		final double[] max = new double[ numDimensions ];
+		image.realMin( min );
+		image.realMax( max );
+		transform.estimateBounds( min, max );
 
 		this.outputImageFactory = outImgFactory;
-		
-		for ( int d = 0; d < numDimensions; ++d )
-		{
-			min[ d ] = (float) image.realMin( d );
-			max[ d ] = (float) image.realMax( d ); 
-		}
-		transform.estimateBounds( min, max );
-		
-		offset = new float[ numDimensions ];
-		
+
+		offset = new double[ numDimensions ];
+
 		// get the final size for the new image
 		newDim = new long[ numDimensions ];
 
@@ -139,9 +134,9 @@ public class ImageTransform<T extends Type<T>> implements OutputAlgorithm<Random
 	 * @return the image factory used for the output
 	 */
 	public ImgFactory<T> getOutputImgFactory() { return this.outputImageFactory; }
-	
-	public float[] getOffset() { return offset; }
-	public void setOffset( final float[] offset ) 
+
+	public double[] getOffset() { return offset; }
+	public void setOffset( final double[] offset )
 	{
 		for ( int d = 0; d < numDimensions; ++d )
 			this.offset[ d ] = offset[ d ];
@@ -201,7 +196,7 @@ public class ImageTransform<T extends Type<T>> implements OutputAlgorithm<Random
 		
 		try
 		{
-			final float[] tmp = new float[ numDimensions ];
+			final double[] tmp = new double[ numDimensions ];
 
 			while (transformedIterator.hasNext())
 			{

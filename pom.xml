@@ -48,20 +48,12 @@
 		<dependency>
 			<groupId>mpicbg</groupId>
 			<artifactId>mpicbg</artifactId>
-			<version>0.6.1</version>
-			<exclusions>
-				<exclusion>
-					<groupId>jama</groupId>
-					<artifactId>jama</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 		<!-- Third-party dependencies -->
 		<dependency>
 			<groupId>edu.mines</groupId>
 			<artifactId>mines-jtk</artifactId>
-			<version>20100113</version>
 		</dependency>
 
 		<!-- Test dependencies -->
