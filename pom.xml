@@ -5,14 +5,21 @@
 	<parent>
 		<groupId>net.imglib2</groupId>
 		<artifactId>pom-imglib2</artifactId>
-		<version>5.2.1</version>
+		<version>9.0.0</version>
+		<relativePath />
 	</parent>
 
 	<artifactId>imglib2-algorithm-gpl</artifactId>
-	<version>0.1.6-SNAPSHOT</version>
+	<version>0.2.0-SNAPSHOT</version>
 
 	<name>ImgLib2 Algorithms: GPL</name>
 	<description>Useful image processing algorithms, licensed under the GPL.</description>
+	<url>https://github.com/imglib/imglib2-algorithm-gpl</url>
+	<inceptionYear>2009</inceptionYear>
+	<organization>
+		<name>ImgLib2</name>
+		<url>http://imglib2.net/</url>
+	</organization>
 	<licenses>
 		<license>
 			<name>GNU General Public License v2+</name>
@@ -21,6 +28,119 @@
 		</license>
 	</licenses>
 
+	<mailingLists>
+		<mailingList>
+			<name>ImageJ Forum</name>
+			<archive>http://forum.imagej.net/</archive>
+		</mailingList>
+	</mailingLists>
+
+	<scm>
+		<connection>scm:git:git://github.com/imglib/imglib2-algorithm-gpl</connection>
+		<developerConnection>scm:git:git@github.com:imglib/imglib2-algorithm-gpl</developerConnection>
+		<tag>HEAD</tag>
+		<url>https://github.com/imglib/imglib2-algorithm-gpl</url>
+	</scm>
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/imglib/imglib2-algorithm-gpl/issues</url>
+	</issueManagement>
+	<ciManagement>
+		<system>Jenkins</system>
+		<url>http://jenkins.imagej.net/job/ImgLib2-algorithmi-gpl/</url>
+	</ciManagement>
+
+	<developers>
+		<developer>
+			<id>tpietzsch</id>
+			<name>Tobias Pietzsch</name>
+			<url>http://imagej.net/User:Pietzsch</url>
+			<roles>
+				<role>lead</role>
+				<role>developer</role>
+				<role>debugger</role>
+				<role>reviewer</role>
+				<role>support</role>
+				<role>maintainer</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>StephanPreibisch</id>
+			<name>Stephan Preibisch</name>
+			<url>http://imagej.net/User:StephanP</url>
+			<roles>
+				<role>founder</role>
+				<role>lead</role>
+				<role>developer</role>
+				<role>debugger</role>
+				<role>reviewer</role>
+				<role>support</role>
+				<role>maintainer</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>axtimwalde</id>
+			<name>Stephan Saalfeld</name>
+			<url>http://imagej.net/User:Saalfeld</url>
+			<roles>
+				<role>founder</role>
+				<role>lead</role>
+				<role>developer</role>
+				<role>debugger</role>
+				<role>reviewer</role>
+				<role>support</role>
+				<role>maintainer</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>ctrueden</id>
+			<name>Curtis Rueden</name>
+			<url>http://imagej.net/User:Rueden</url>
+			<roles>
+				<role>maintainer</role>
+			</roles>
+		</developer>
+	</developers>
+	<contributors>
+
+		<!-- Contributor list made by grep for javadoc author tags. Pleae add yourself if you should be here! -->
+
+		<contributor>
+			<name>Larry Lindsey</name>
+			<url>http://imagej.net/User:Lindsey</url>
+			<properties><id>larrylindsey</id></properties>
+		</contributor>
+		<contributor>
+			<name>Jean-Yves Tinevez</name>
+			<url>http://imagej.net/User:JeanYvesTinevez</url>
+			<properties><id>tinevez</id></properties>
+		</contributor>
+		<contributor>
+			<name>Barry DeZonia</name>
+			<url>http://imagej.net/User:Bdezonia</url>
+			<properties><id>bdezonia</id></properties>
+		</contributor>
+		<contributor>
+			<name>Benjamin Schmid</name>
+			<url>http://imagej.net/User:Bene</url>
+			<properties><id>bene51</id></properties>
+		</contributor>
+		<contributor>
+			<name>Christian Dietz</name>
+			<url>http://imagej.net/User:Dietzc</url>
+			<properties><id>dietzc</id></properties>
+		</contributor>
+		<contributor>
+			<name>Jonathan Hale</name>
+			<properties><id>Squareys</id></properties>
+		</contributor>
+		<contributor>
+			<name>Johannes Schindelin</name>
+			<url>http://imagej.net/User:Schindelin</url>
+			<properties><id>dscho</id></properties>
+		</contributor>
+	</contributors>
+
 	<repositories>
 		<!-- NB: for SciJava dependencies -->
 		<repository>
@@ -28,6 +148,20 @@
 			<url>http://maven.imagej.net/content/groups/public</url>
 		</repository>
 	</repositories>
+
+	<properties>
+		<package-name>net.imglib2.algorithm</package-name>
+
+		<license.licenseName>gpl_v2</license.licenseName>
+		<license.projectName>ImgLib2: a general-purpose, multidimensional image processing library.</license.projectName>
+		<license.organizationName>ImgLib2 authors</license.organizationName>
+		<license.copyrightOwners>Tobias Pietzsch, Stephan Preibisch, Stephan Saalfeld,
+John Bogovic, Albert Cardona, Barry DeZonia, Christian Dietz, Jan Funke,
+Aivar Grislis, Jonathan Hale, Grant Harris, Stefan Helfrich, Mark Hiner,
+Martin Horn, Steffen Jaensch, Lee Kamentsky, Larry Lindsey, Melissa Linkert,
+Mark Longair, Brian Northan, Nick Perry, Curtis Rueden, Johannes Schindelin,
+Jean-Yves Tinevez and Michael Zinsmaier.</license.copyrightOwners>
+	</properties>
 
 	<dependencies>
 		<!-- ImgLib2 dependencies -->
@@ -64,26 +198,4 @@
 		</dependency>
 	</dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<artifactId>maven-jar-plugin</artifactId>
-				<configuration>
-					<archive>
-						<manifest>
-							<packageName>net.imglib2.algorithm</packageName>
-						</manifest>
-					</archive>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>license-maven-plugin</artifactId>
-				<configuration>
-					<licenseName>gpl_v2</licenseName>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
 </project>
