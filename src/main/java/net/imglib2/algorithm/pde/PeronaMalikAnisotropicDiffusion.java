@@ -49,13 +49,13 @@ import net.imglib2.view.ExtendedRandomAccessibleInterval;
 import net.imglib2.view.Views;
 
 /**
- * <h1>Perona & Malik Anisotropic diffusion</h1>
+ * <h1>Perona &amp; Malik Anisotropic diffusion</h1>
  * 
  * <h2>Algorithm</h2>
  * 
- * This algorithm implements the so-called anisotropic diffusion scheme of Perona & Malik, 1990,
+ * This algorithm implements the so-called anisotropic diffusion scheme of Perona &amp; Malik, 1990,
  * with imglib. For details on the anisotropic diffusion principles, see 
- * {@link "http://en.wikipedia.org/wiki/Anisotropic_diffusion"}, and the original paper:
+ * <a href="http://en.wikipedia.org/wiki/Anisotropic_diffusion">http://en.wikipedia.org/wiki/Anisotropic_diffusion</a>, and the original paper:
  * <pre>
  * Perona and Malik. 
  * Scale-Space and Edge Detection Using Anisotropic Diffusion. 
@@ -104,7 +104,7 @@ public class PeronaMalikAnisotropicDiffusion <T extends RealType<T>> extends Mul
 	 */
 
 	/**
-	 * Instantiate the Perona & Malik anisotropic diffusion process, with a custom diffusion function.
+	 * Instantiate the Perona &amp; Malik anisotropic diffusion process, with a custom diffusion function.
 	 *  
 	 * @param img  the target image, will be modified in place
 	 * @param deltat  the integration constant for the numerical integration scheme. Typically less that 1.
@@ -146,7 +146,7 @@ public class PeronaMalikAnisotropicDiffusion <T extends RealType<T>> extends Mul
 	}
 	
 	/**
-	 * Instantiate the Perona & Malik anisotropic diffusion process, with a custom diffusion function.
+	 * Instantiate the Perona &amp; Malik anisotropic diffusion process, with a custom diffusion function.
 	 *  
 	 * @param image  the target image, will be modified in place
 	 * @param deltat  the integration constant for the numerical integration scheme. Typically less that 1.
@@ -168,7 +168,7 @@ public class PeronaMalikAnisotropicDiffusion <T extends RealType<T>> extends Mul
 	}
 
 	/**
-	 * Instantiate the Perona & Malik anisotropic diffusion process, with the default strong-edge
+	 * Instantiate the Perona &amp; Malik anisotropic diffusion process, with the default strong-edge
 	 * diffusion function.
 	 *  
 	 * @param image  the target image, will be modified in place
@@ -182,7 +182,7 @@ public class PeronaMalikAnisotropicDiffusion <T extends RealType<T>> extends Mul
 	}
 
 	/**
-	 * Instantiate the Perona & Malik anisotropic diffusion process, with the default strong-edge
+	 * Instantiate the Perona &amp; Malik anisotropic diffusion process, with the default strong-edge
 	 * diffusion function.
 	 *  
 	 * @param image  the target image, will be modified in place
@@ -350,7 +350,7 @@ public class PeronaMalikAnisotropicDiffusion <T extends RealType<T>> extends Mul
 
 	/**
 	 * The interface that function suitable to be diffusion function must implement.
-	 * It is very simple and has some limitation: in Perona & Malik scheme, the gradient 
+	 * It is very simple and has some limitation: in Perona &amp; Malik scheme, the gradient 
 	 * at each arc location is approximated by the absolute value of its projection along the 
 	 * direction of the arc (see paper, p. 633). Functions implementing this interface are 
 	 * therefore provided only with a single component of the gradient, and must return the
@@ -368,7 +368,7 @@ public class PeronaMalikAnisotropicDiffusion <T extends RealType<T>> extends Mul
 	}
 
 	/**
-	 * The first diffusion function proposed by Perona & Malik. This one 
+	 * The first diffusion function proposed by Perona &amp; Malik. This one 
 	 * privileges strong edges over weak ones.
 	 * <pre> g(∇I) = exp( - (||∇I/κ||²) )</pre>
 	 */
@@ -384,7 +384,7 @@ public class PeronaMalikAnisotropicDiffusion <T extends RealType<T>> extends Mul
 	}
 
 	/**
-	 * The second diffusion function proposed by Perona & Malik. This one 
+	 * The second diffusion function proposed by Perona &amp; Malik. This one 
 	 * privileges wide regions over smaller ones.
 	 * <pre> g(∇I) = 1 / ( 1 + (||∇I/κ||²) )</pre>
 	 */

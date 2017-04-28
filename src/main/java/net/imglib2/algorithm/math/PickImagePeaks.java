@@ -48,8 +48,8 @@ import net.imglib2.view.Views;
  * operator in each dimension, differentiating between negative and non-negative
  * differences, then finding transitions from non-negative to negative. This is
  * accomplished in a random-access manner, in other words, with one
- * {@link LocalizableCursor} irrespective of how it traverses the {@link Img},
- * and a {@link LocalizableByDimCursor} that is set to its 2^n-connected
+ * {@link Cursor} irrespective of how it traverses the {@link Img},
+ * and a localizable by dim {@link Cursor} that is set to its 2^n-connected
  * neighbors (where n is dimensionality).
  * <p>
  * The result is that this is a fairly simple, (hopefully) fast peak-picker, but
@@ -60,7 +60,7 @@ import net.imglib2.view.Views;
  * peak image before using this.
  * 
  * @param <T>
- *            the {@link ComparableType} representing information stored in the
+ *            the comparable {@link RealType} representing information stored in the
  *            {@link Img} to pick peaks from.
  * 
  * @author Larry Lindsey <br>

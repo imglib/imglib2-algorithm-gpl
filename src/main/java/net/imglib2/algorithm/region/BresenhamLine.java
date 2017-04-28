@@ -37,8 +37,8 @@ import net.imglib2.RandomAccess;
 import net.imglib2.RandomAccessible;
 
 /**
- * n-Dimension Bresenham line ({@linkplain http
- * ://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm}): an iterator that
+ * n-Dimension Bresenham line (<a href="http://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm">http://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm"</a>)
+ * : an iterator that
  * iterates all the pixels between two points.
  * <p>
  * This implementation uses eager initialization: all the coordinates along the

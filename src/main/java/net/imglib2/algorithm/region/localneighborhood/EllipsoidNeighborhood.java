@@ -41,7 +41,7 @@ import net.imglib2.outofbounds.OutOfBoundsPeriodicFactory;
  * of the ellipsoid are <code>2 x span[d] + 1</code> for dimension
  * <code>d</code>.
  * <p>
- * The ellipsoid can be positioned anywhere in a nD image (n >= 3), but will
+ * The ellipsoid can be positioned anywhere in a nD image (n &gt;= 3), but will
  * always by 3D. Consequently, only the first 3 elements of the
  * {@link AbstractNeighborhood#span} array are considered.
  * 

@@ -46,7 +46,7 @@ public class PdeUtil {
 	 * @return a <code>double[]</code> array containing in order:
 	 *         <code>mu_1</code> and <code>mu_2</code> the two eigenvalues in
 	 *         ascending order, and <code>cosα</code> and <code>sinα</code> the X
-	 *         & Y components of the first eigenvector.
+	 *         &amp; Y components of the first eigenvector.
 	 * @author Jean-Yves Tivenez
 	 * @author Barry DeZonia
 	 */

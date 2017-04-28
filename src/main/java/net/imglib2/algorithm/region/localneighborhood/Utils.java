@@ -42,7 +42,7 @@ public class Utils {
 	 * to at least <code>b+1</code>.
 	 * <p>
 	 * This is an implementation of the McIlroy's algorithm, adapted freely from 
-	 * {@link "http://enchantia.com/software/graphapp/doc/tech/ellipses.html"}.
+	 * <a href="http://enchantia.com/software/graphapp/doc/tech/ellipses.html">http://enchantia.com/software/graphapp/doc/tech/ellipses.html</a>.
 	 * 
 	 * @param a  half-length of the ellipse in the X direction
 	 * @param b  half-length of the ellipse in the Y direction
@@ -87,7 +87,7 @@ public class Utils {
 	
 	/**
 	 * Midpoint circle algorithm: store the bounds of a circle in the given array. From
-	 * {@link "http://en.wikipedia.org/wiki/Midpoint_circle_algorithm"}
+	 * <a href="http://en.wikipedia.org/wiki/Midpoint_circle_algorithm">http://en.wikipedia.org/wiki/Midpoint_circle_algorithm</a>
 	 * @param radius  the radius of the circle
 	 * @param lineBounds  the array to store bounds in
 	 */

@@ -81,8 +81,8 @@ public abstract class ExplicitDiffusionScheme< T extends RealType< T >> extends 
 	 */
 	/**
 	 * Contructor of ExplicitDiffusionScheme, calls contructor
-	 * ExplicitDiffusionScheme(RandomAccessibleInterval<T>,
-	 * RandomAccessibleInterval<FloatType>, ImgFactory<FloatType>) and uses the
+	 * {@code ExplicitDiffusionScheme(RandomAccessibleInterval<T>,
+	 * RandomAccessibleInterval<FloatType>, ImgFactory<FloatType>)} and uses the
 	 * {@link ImgFactory} of the second Img as third parameter.
 	 * 
 	 * @param input the input Img
@@ -94,9 +94,9 @@ public abstract class ExplicitDiffusionScheme< T extends RealType< T >> extends 
 	
 	/**
 	 * Contructor of ExplicitDiffusionScheme, calls contructor
-	 * ExplicitDiffusionScheme(RandomAccessibleInterval<T>,
-	 * RandomAccessibleInterval<FloatType>, ImgFactory<FloatType>) and uses a default
-	 * {@link ArrayImgFactory}<FloatType> or {@link CellImgFactory}<FloatType> as third parameter
+	 * {@code ExplicitDiffusionScheme(RandomAccessibleInterval<T>,
+	 * RandomAccessibleInterval<FloatType>, ImgFactory<FloatType>)} and uses a default
+	 * {@code ArrayImgFactory<FloatType>} or {@code CellImgFactory<FloatType>} as third parameter
 	 * (depends on size of input).
 	 * @param input the input Img
 	 * @param D the diffusion tensor

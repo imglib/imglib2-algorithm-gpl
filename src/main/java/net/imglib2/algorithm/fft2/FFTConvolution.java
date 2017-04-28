@@ -56,8 +56,8 @@ import net.imglib2.view.Views;
  * The class supports to sequentially convolve the same image with different
  * kernels. To achieve that, you have to call setKeepImgFFT(true) and for each
  * sequential run replace the kernel by either calling
- * setKernel(RandomAccessibleInterval< R > kernel) or
- * setKernel(RandomAccessible< R > kernel, Interval kernelInterval). The Fourier
+ * {@code setKernel(RandomAccessibleInterval< R > kernel)} or
+ * {@code setKernel(RandomAccessible< R > kernel, Interval kernelInterval)}. The Fourier
  * convolution will keep the FFT of the image which will speed up all
  * convolutions after the initial run() call. NOTE: There is no checking if the
  * sizes are compatible. If the new kernel has smaller or larger dimensions, it
@@ -67,8 +67,8 @@ import net.imglib2.view.Views;
  * 
  * In the same way, you can sequentially convolve varying images with the same
  * kernel. For that, you simply have to replace the image after the first run()
- * call by calling either setImg(RandomAccessibleInterval< R > img) or
- * setImg(RandomAccessible< R > img, Interval imgInterval). The Fourier
+ * call by calling either {@code setImg(RandomAccessibleInterval< R > img)} or
+ * {@code setImg(RandomAccessible< R > img, Interval imgInterval)}. The Fourier
  * convolution will keep the FFT of the kernel which will speed up all
  * convolutions after the initial run() call. NOTE: There is no checking if the
  * sizes are compatible. If the new input has smaller or larger dimensions, it

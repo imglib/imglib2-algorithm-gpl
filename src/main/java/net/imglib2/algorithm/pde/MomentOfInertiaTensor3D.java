@@ -111,7 +111,7 @@ public class MomentOfInertiaTensor3D< T extends RealType< T >> extends MultiThre
 	 * @param scale
 	 * @param epsilon_1
 	 * @param epsilon_2
-	 * @deprecated Use {@link #MomentOfInertiaTensor3D(RandomAccessibleInterval, ImgFactory, int, double, double)} instead and define the {@ArrayImg}<FloatType> for the output.
+	 * @deprecated Use {@link #MomentOfInertiaTensor3D(RandomAccessibleInterval, ImgFactory, int, double, double)} instead and define the {@code ArrayImg<FloatType>} for the output.
 	 */
 	@Deprecated
 	public MomentOfInertiaTensor3D( Img< T > input, int scale, double epsilon_1, double epsilon_2 )
@@ -136,7 +136,7 @@ public class MomentOfInertiaTensor3D< T extends RealType< T >> extends MultiThre
 	 * 
 	 * @param input
 	 * @param scale
-	 * @deprecated Use {@link #MomentOfInertiaTensor3D(RandomAccessibleInterval, ImgFactory, int, double, double)} instead and define the {@ArrayImg}<FloatType> for the output.
+	 * @deprecated Use {@link #MomentOfInertiaTensor3D(RandomAccessibleInterval, ImgFactory, int, double, double)} instead and define the {@code ArrayImg<FloatType>} for the output.
 	 */
 	@Deprecated
 	public MomentOfInertiaTensor3D( Img< T > input, int scale )

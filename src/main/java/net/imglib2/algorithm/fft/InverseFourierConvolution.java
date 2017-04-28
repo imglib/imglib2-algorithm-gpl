@@ -39,7 +39,7 @@ import net.imglib2.view.Views;
 /**
  * Convolve an image with the inverse of a kernel which is division in the
  * Fourier domain. This is the simple, unnormalized version of what is used in
- * the {@link PhaseCorrelation}.
+ * the PhaseCorrelation.
  * 
  * 
  * @author Stephan Saalfeld

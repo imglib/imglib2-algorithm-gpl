@@ -51,8 +51,8 @@ public class LevenbergMarquardtSolver implements FunctionFitter {
 	 * Creates a new Levenberg-Marquardt solver for least-square curve fitting problems. 
 	 * @param lambda blend between steepest descent (lambda high) and
 	 *	jump to bottom of quadratic (lambda zero). Start with 0.001.
-	 * @param termepsilon termination accuracy (0.01)
-	 * @param maxiter	stop and return after this many iterations if not done
+	 * @param termEpsilon termination accuracy (0.01)
+	 * @param maxIteration stop and return after this many iterations if not done
 	 */
 	public LevenbergMarquardtSolver(int maxIteration, double lambda, double termEpsilon) {
 		this.maxIteration = maxIteration;

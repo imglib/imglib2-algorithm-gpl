@@ -102,14 +102,14 @@ public class MomentOfInertiaTensor2D< T extends RealType< T >> extends MultiThre
 
 	/**
 	 * Sets the image factory to be either the ImgFactory of the input with FloatType, or
-	 * if types are incompatible, a default {@ArrayImgFactory}<FloatType>.
+	 * if types are incompatible, a default {@code ArrayImgFactory<FloatType>}.
 	 * @param input
 	 * @param scale
 	 * @param epsilon_1
 	 * @param epsilon_2
 	 * @deprecated Use
 	 *             {@link #MomentOfInertiaTensor2D(RandomAccessibleInterval, ImgFactory, int, double, double)}
-	 *             and specify the {@link ImgFactory}<Float> for the output.
+	 *             and specify the {@code ImgFactory<Float>} for the output.
 	 */
 	@Deprecated
 	public MomentOfInertiaTensor2D( Img< T > input, int scale, double epsilon_1, double epsilon_2 )
@@ -131,12 +131,12 @@ public class MomentOfInertiaTensor2D< T extends RealType< T >> extends MultiThre
 	}
 
 	/**
-	 * Calls {@link #MomentOfInertiaTensor2D(RandomAccessibleInterval, int, double, double) }
+	 * Calls {@link #MomentOfInertiaTensor2D(Img, int, double, double) }
 	 * @param input
 	 * @param scale
 	 * @deprecated Use
 	 *             {@link #MomentOfInertiaTensor2D(RandomAccessibleInterval, ImgFactory, int)}
-	 *             and specify the {@link ImgFactory}<Float> for the output.
+	 *             and specify the {@code ImgFactory<Float>} for the output.
 	 */
 	@Deprecated
 	public MomentOfInertiaTensor2D( Img< T > input, int scale )

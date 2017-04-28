@@ -47,7 +47,7 @@ import net.imglib2.util.Util;
 import net.imglib2.view.Views;
 
 /**
- * Provides all Fourier-based methods required by {@link FourierTransform}, {@link InverseFourierTransform}, {@link FourierConvolution} and {@link PhaseCorrelation}
+ * Provides all Fourier-based methods required by {@link FourierTransform}, {@link InverseFourierTransform}, {@link FourierConvolution} and PhaseCorrelation
  * 
  * Unfortunately only supports a maximal size of INT in each dimension as the one-dimensional FFT is based on arrays.
  * 

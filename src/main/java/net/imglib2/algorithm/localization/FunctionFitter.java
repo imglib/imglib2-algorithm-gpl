@@ -35,7 +35,7 @@ public interface FunctionFitter {
 	 * 
 	 * @param x array of domain points, each may be multidimensional. 
 	 * (For instance, for 2D data, provides a double array of N double arrays 
-	 * of 2 elements: x & y.)
+	 * of 2 elements: x &amp; y.)
 	 * @param y corresponding array of values.
 	 * @param a the parameters/state of the model. Is updated by the call. 
 	 * @param f  the function to fit on the domain points.

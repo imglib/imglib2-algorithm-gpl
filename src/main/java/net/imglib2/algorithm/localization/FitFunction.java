@@ -29,10 +29,10 @@ package net.imglib2.algorithm.localization;
 
 /**
  * Interface for fitting-target functions.
- * <>
+ * <p>
  * Functions defined here are scalar, multi-dimensional ones. 
  * We impose that they can return a gradient, so as to use various curve-fitting scheme.
- * <p>
+ * </p>
  * 
  *
  */

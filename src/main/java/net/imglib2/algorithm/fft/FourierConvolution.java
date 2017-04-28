@@ -169,7 +169,7 @@ public class FourierConvolution< T extends RealType< T >, S extends RealType< S 
 	 * @param kernel
 	 *            - the kernel {@link Img} for the convolution operation
 	 * @throws IncompatibleTypeException
-	 *             if the factory of the input {@link Img}<T> is not compatible
+	 *             if the factory of the input {@code Img<T>} is not compatible
 	 *             with the {@link ComplexFloatType} (it needs to be a
 	 *             {@link NativeType})
 	 */
