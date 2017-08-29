@@ -36,14 +36,17 @@ import net.imglib2.FinalInterval;
 import net.imglib2.Interval;
 import net.imglib2.RandomAccessible;
 import net.imglib2.RandomAccessibleInterval;
-import net.imglib2.exception.IncompatibleTypeException;
+import net.imglib2.algorithm.fft2.FFT;
+import net.imglib2.algorithm.fft2.FFTMethods;import net.imglib2.exception.IncompatibleTypeException;
 import net.imglib2.img.Img;
 import net.imglib2.img.ImgFactory;
 import net.imglib2.img.array.ArrayImgFactory;
 import net.imglib2.img.cell.CellImgFactory;
 import net.imglib2.type.numeric.RealType;
 import net.imglib2.type.numeric.complex.ComplexFloatType;
+import net.imglib2.util.Pair;
 import net.imglib2.util.Util;
+import net.imglib2.util.ValuePair;
 import net.imglib2.view.Views;
 
 /**
@@ -468,14 +471,47 @@ public class FFTConvolution< R extends RealType< R > >
 		return fftKernel;
 	}
 
+	/**
+	 * Sets the FFT kernel as computed, be very careful with this method, if any parameters of the FFT are wrong, this will fail
+	 *
+	 * @param fftKernel - the FFT of the kernel
+	 */
+	public void setKernelFFT( final Img< ComplexFloatType > fftKernel )
+	{
+		this.fftKernel = fftKernel;
+	}
+
+	/**
+	 * Sets the FFT image as computed, be very careful with this method, if any parameters of the FFT are wrong, this will fail
+	 * WARNING: if you do not set keepImgFFT, this image will be modified during convolution
+	 * 
+	 * @param fftImg - the FFT of the image
+	 */
+	public void setImgFFT( final Img< ComplexFloatType > fftImg )
+	{
+		this.fftImg = fftImg;
+	}
+
 	public void convolve()
 	{
-		ExecutorService s = service;
-		if (service == null) {
-			// create an ExecutorService
-			// FIXME: Better way to define number of threads?
-			s = Executors.newFixedThreadPool( Runtime.getRuntime( ).availableProcessors());
-		}
+		final long[] min = new long[ img.numDimensions() ];
+		final long[] max = new long[ img.numDimensions() ];
+
+		final Pair< Interval, Interval > fftIntervals = setupFFTs( imgInterval, kernelInterval, min, max );
+
+		// compute the FFT of the image if it does not exist yet
+		if ( fftImg == null )
+			fftImg = computeImgFFT( fftIntervals.getA(), img, fftFactory, service );
+
+		// compute the FFT of the kernel if it does not exist yet
+		if ( fftKernel == null )
+			fftKernel = computeKernelFFT( fftIntervals.getB(), min, max, complexConjugate, kernel, fftFactory, service );
+
+		computeConvolution( fftImg, fftKernel, output, keepImgFFT, service );
+	}
+
+	public static Pair< Interval, Interval > setupFFTs( final Interval imgInterval, final Interval kernelInterval, final long[] min, final long[] max )
+	{
 		final int numDimensions = imgInterval.numDimensions();
 
 		// the image has to be extended at least by kernelDimensions/2-1 in each
@@ -503,35 +539,60 @@ public class FFTConvolution< R extends RealType< R > >
 		// compute where to place the final Interval for the kernel so that the
 		// coordinate in the center
 		// of the kernel is at position (0,0)
-		final long[] min = new long[ numDimensions ];
-		final long[] max = new long[ numDimensions ];
-
 		for ( int d = 0; d < numDimensions; ++d )
 		{
 			min[ d ] = kernelInterval.min( d ) + kernelInterval.dimension( d ) / 2;
 			max[ d ] = min[ d ] + kernelConvolutionInterval.dimension( d ) - 1;
 		}
 
+		return new ValuePair< Interval, Interval >( imgConvolutionInterval, kernelConvolutionInterval );
+	}
+
+	public static < R extends RealType< R > > Img< ComplexFloatType > computeImgFFT(
+			final Interval imgConvolutionInterval,
+			final RandomAccessible< R > img,
+			final ImgFactory< ComplexFloatType > fftFactory,
+			final ExecutorService service )
+	{
+		// assemble the correct kernel (size of the input + extended periodic +
+		// top left at center of input kernel)
+		final RandomAccessibleInterval< R > imgInput = Views.interval( img, imgConvolutionInterval );
+
+		// compute the FFT's
+		return FFT.realToComplex( imgInput, fftFactory, service );
+	}
+
+	public static < R extends RealType< R > > Img< ComplexFloatType > computeKernelFFT(
+			final Interval kernelConvolutionInterval,
+			final long[] min,
+			final long[] max,
+			final boolean complexConjugate,
+			final RandomAccessible< R > kernel,
+			final ImgFactory< ComplexFloatType > fftFactory,
+			final ExecutorService service )
+	{
 		// assemble the correct kernel (size of the input + extended periodic +
 		// top left at center of input kernel)
 		final RandomAccessibleInterval< R > kernelInput = Views.interval( Views.extendPeriodic( Views.interval( kernel, kernelConvolutionInterval ) ), new FinalInterval( min, max ) );
-		final RandomAccessibleInterval< R > imgInput = Views.interval( img, imgConvolutionInterval );
 
-		// compute the FFT's if they do not exist yet
-		if ( fftImg == null )
-			fftImg = FFT.realToComplex( imgInput, fftFactory, s );
+		final Img< ComplexFloatType > fftKernel = FFT.realToComplex( kernelInput, fftFactory, service );
 
-		if ( fftKernel == null )
-		{
-			fftKernel = FFT.realToComplex( kernelInput, fftFactory, s );
+		// if complexConjugate is set we are computing the correlation  
+		// instead of the convolution (same as mirroring the kernel)
+		// should be false by default
+		if ( complexConjugate )
+			FFTMethods.complexConjugate( fftKernel );
 
-			// if complexConjugate is set we are computing the correlation  
-			// instead of the convolution (same as mirroring the kernel)
-			// should be false by default
-			if ( complexConjugate )
-				FFTMethods.complexConjugate( fftKernel );
-		}
+		return fftKernel;
+	}
 
+	public static < R extends RealType< R > > void computeConvolution(
+			final Img< ComplexFloatType > fftImg,
+			final Img< ComplexFloatType > fftKernel,
+			final RandomAccessibleInterval< R > output,
+			final boolean keepImgFFT,
+			final ExecutorService service )
+	{
 		final Img< ComplexFloatType > fftconvolved;
 
 		if ( keepImgFFT )
@@ -543,12 +604,7 @@ public class FFTConvolution< R extends RealType< R > >
 		multiplyComplex( fftconvolved, fftKernel );
 
 		// inverse FFT in place
-		FFT.complexToRealUnpad( fftconvolved, output, s );
-		
-		if ( service == null ) { 
-			// shutdown own self created service
-			s.shutdown();
-		}
+		FFT.complexToRealUnpad( fftconvolved, output, service );
 	}
 
 	final public static < R extends RealType< R > > void convolve( final RandomAccessible< R > img, final Interval imgInterval, final RandomAccessible< R > kernel, final Interval kernelInterval, final RandomAccessibleInterval< R > output, final ImgFactory< ComplexFloatType > factory, final int numThreads )
@@ -636,7 +692,10 @@ public class FFTConvolution< R extends RealType< R > >
 	 */
 	public void setExecutorService( final ExecutorService service )
 	{
-		this.service = service;
+		if ( service == null )
+			this.service = Executors.newFixedThreadPool( Runtime.getRuntime( ).availableProcessors());
+		else
+			this.service = service;
 	}
 
 	/**
