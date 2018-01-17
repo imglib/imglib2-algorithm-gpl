@@ -10,7 +10,7 @@
 	</parent>
 
 	<artifactId>imglib2-algorithm-gpl</artifactId>
-	<version>0.2.2-SNAPSHOT</version>
+	<version>0.2.2</version>
 
 	<name>ImgLib2 Algorithms: GPL</name>
 	<description>Useful image processing algorithms, licensed under the GPL.</description>
@@ -38,7 +38,7 @@
 	<scm>
 		<connection>scm:git:git://github.com/imglib/imglib2-algorithm-gpl</connection>
 		<developerConnection>scm:git:git@github.com:imglib/imglib2-algorithm-gpl</developerConnection>
-		<tag>HEAD</tag>
+		<tag>imglib2-algorithm-gpl-0.2.2</tag>
 		<url>https://github.com/imglib/imglib2-algorithm-gpl</url>
 	</scm>
 	<issueManagement>
