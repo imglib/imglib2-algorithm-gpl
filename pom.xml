@@ -10,7 +10,7 @@
 	</parent>
 
 	<artifactId>imglib2-algorithm-gpl</artifactId>
-	<version>0.2.2-SNAPSHOT</version>
+	<version>0.2.3-SNAPSHOT</version>
 
 	<name>ImgLib2 Algorithms: GPL</name>
 	<description>Useful image processing algorithms, licensed under the GPL.</description>
