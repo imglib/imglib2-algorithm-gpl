@@ -32,14 +32,12 @@ import net.imglib2.RandomAccess;
 import net.imglib2.RandomAccessibleInterval;
 import net.imglib2.algorithm.MultiThreadedBenchmarkAlgorithm;
 import net.imglib2.algorithm.OutputAlgorithm;
-import net.imglib2.exception.IncompatibleTypeException;
 import net.imglib2.img.Img;
 import net.imglib2.img.ImgFactory;
-import net.imglib2.img.array.ArrayImgFactory;
-import net.imglib2.img.cell.CellImgFactory;
 import net.imglib2.outofbounds.OutOfBounds;
 import net.imglib2.type.numeric.RealType;
 import net.imglib2.type.numeric.real.FloatType;
+import net.imglib2.util.Util;
 import net.imglib2.view.Views;
 
 public class Gradient< T extends RealType< T >> extends MultiThreadedBenchmarkAlgorithm implements OutputAlgorithm< Img< FloatType >>
@@ -66,20 +64,7 @@ public class Gradient< T extends RealType< T >> extends MultiThreadedBenchmarkAl
 	@Deprecated
 	public Gradient( final Img< T > input, final boolean[] doDimension )
 	{
-		this( input, chooseFactory( input ), doDimension );
-	}
-
-	//TODO: remove with above
-	private static ImgFactory< FloatType > chooseFactory( Img< ? > input )
-	{
-		try
-		{
-			return input.factory().imgFactory( new FloatType() );
-		}
-		catch ( IncompatibleTypeException e )
-		{
-			return ( input.size() > Integer.MAX_VALUE ) ? new CellImgFactory< FloatType >() : new ArrayImgFactory< FloatType >();
-		}
+		this( input, Util.getSuitableImgFactory( input, new FloatType() ), doDimension );
 	}
 
 	public Gradient( final RandomAccessibleInterval< T > input, ImgFactory< FloatType > imgFactory, final boolean[] doDimension )
@@ -93,7 +78,7 @@ public class Gradient< T extends RealType< T >> extends MultiThreadedBenchmarkAl
 		}
 		dimensions[ dimensions.length - 1 ] = input.numDimensions();
 
-		output = imgFactory.create( dimensions, new FloatType() );
+		output = imgFactory.create( dimensions );
 	}
 
 	@Override

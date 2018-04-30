@@ -43,7 +43,7 @@ public class LocalNeighborhoodCursorBehavior {
 		
 		try {
 			
-			Img<FloatType> img = new ArrayImgFactory<FloatType>().create(new int[]{1, 1}, new FloatType());
+			Img< FloatType > img = new ArrayImgFactory< >( new FloatType() ).create( new int[] { 1, 1 } );
 			LocalNeighborhoodCursor<FloatType> lnc =
 				new LocalNeighborhoodCursor<FloatType>(Views.extendMirrorSingle(img).randomAccess(), 1);
 			Cursor<FloatType> cursor = img.cursor();

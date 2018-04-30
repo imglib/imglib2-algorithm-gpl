@@ -177,7 +177,7 @@ public class PickImagePeaks< T extends RealType< T >> implements OutputAlgorithm
 		image.dimensions( dimensions );
 		final long[] pos = new long[ dimensions.length ];
 		final long[] checkPos = new long[ pos.length ];
-		final ArrayImgFactory< BitType > peakFactory = new ArrayImgFactory< BitType >();
+		final ArrayImgFactory< BitType > peakFactory = new ArrayImgFactory<>( new BitType() );
 		/*
 		 * Create an intermediate image. This image will contain a sort of
 		 * signum operation of the difference along a given dimension of the
@@ -189,8 +189,8 @@ public class PickImagePeaks< T extends RealType< T >> implements OutputAlgorithm
 		Img< BitType > imImage;
 		T t0, tc;
 
-		peakImage = peakFactory.create( dimensions, new BitType() );
-		imImage = peakFactory.create( dimensions, new BitType() );
+		peakImage = peakFactory.create( dimensions );
+		imImage = peakFactory.create( dimensions );
 		imImagePullCursor = imImage.localizingCursor();
 		if ( allowBorderPeak )
 		{

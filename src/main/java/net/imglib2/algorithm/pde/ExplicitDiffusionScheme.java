@@ -35,13 +35,12 @@ import net.imglib2.RandomAccessibleInterval;
 import net.imglib2.algorithm.MultiThreadedBenchmarkAlgorithm;
 import net.imglib2.img.Img;
 import net.imglib2.img.ImgFactory;
-import net.imglib2.img.array.ArrayImgFactory;
-import net.imglib2.img.cell.CellImgFactory;
 import net.imglib2.multithreading.Chunk;
 import net.imglib2.multithreading.SimpleMultiThreading;
 import net.imglib2.outofbounds.OutOfBounds;
 import net.imglib2.type.numeric.RealType;
 import net.imglib2.type.numeric.real.FloatType;
+import net.imglib2.util.Util;
 import net.imglib2.view.ExtendedRandomAccessibleInterval;
 import net.imglib2.view.Views;
 
@@ -103,7 +102,7 @@ public abstract class ExplicitDiffusionScheme< T extends RealType< T >> extends 
 	 */
 	public ExplicitDiffusionScheme( final RandomAccessibleInterval< T > input, final RandomAccessibleInterval< FloatType > D ) 
 	{
-		this( input, D, ( Views.iterable( input ).size() >= Integer.MAX_VALUE ) ? new CellImgFactory<FloatType>() : new ArrayImgFactory< FloatType >());
+		this( input, D, Util.getSuitableImgFactory( input, new FloatType() ) );
 	}
 
 	public ExplicitDiffusionScheme( final RandomAccessibleInterval< T > input, final RandomAccessibleInterval< FloatType > D, ImgFactory< FloatType > imgFactory )
@@ -111,7 +110,7 @@ public abstract class ExplicitDiffusionScheme< T extends RealType< T >> extends 
 		this.input = input;
 		this.D = D;
 
-		this.increment = imgFactory.create( input, new FloatType() );
+		this.increment = imgFactory.create( input );
 
 		// Protection against under/overflow
 		this.minVal = ( float ) Views.iterable( input ).firstElement().getMinValue();

@@ -679,8 +679,8 @@ public class FFTConvolution< R extends RealType< R > >
 		catch ( final IncompatibleTypeException e )
 		{
 			if ( img.size() > Integer.MAX_VALUE / 2 )
-				return new CellImgFactory< ComplexFloatType >( 1024 );
-			return new ArrayImgFactory< ComplexFloatType >();
+				return new CellImgFactory<>( new ComplexFloatType(), 1024 );
+			return new ArrayImgFactory<>( new ComplexFloatType() );
 		}
 	}
 

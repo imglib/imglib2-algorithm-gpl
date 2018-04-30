@@ -104,7 +104,7 @@ public class CoherenceEnhancingDiffusionTensor2D< T extends RealType< T >> exten
 		tensorDims[ input.numDimensions() ] = 3;
 		try
 		{
-			D = input.factory().imgFactory( new FloatType() ).create( tensorDims, new FloatType() );
+			D = input.factory().imgFactory( new FloatType() ).create( tensorDims );
 		}
 		catch ( final IncompatibleTypeException e )
 		{
@@ -125,7 +125,7 @@ public class CoherenceEnhancingDiffusionTensor2D< T extends RealType< T >> exten
 
 		/* 3. Compute the structure tensor. */
 
-		final Img< FloatType > J = D.factory().create( D, new FloatType() );
+		final Img< FloatType > J = D.factory().create( D );
 		final int newDim = input.numDimensions();
 
 		final Vector< Chunk > chunks = SimpleMultiThreading.divideIntoChunks( input.size(), numThreads );

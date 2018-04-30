@@ -126,7 +126,7 @@ public class MomentOfInertiaTensor2D< T extends RealType< T >> extends MultiThre
 		}
 		catch ( IncompatibleTypeException e )
 		{
-			return new ArrayImgFactory< FloatType >();
+			return new ArrayImgFactory<>( new FloatType() );
 		}
 	}
 
@@ -182,7 +182,7 @@ public class MomentOfInertiaTensor2D< T extends RealType< T >> extends MultiThre
 		final int tensorDim = input.numDimensions(); // the dim to write the
 														// tensor components to.
 
-		D = imgFactory.create( tensorDims, new FloatType() );
+		D = imgFactory.create( tensorDims );
 
 		Vector< Chunk > chunks = SimpleMultiThreading.divideIntoChunks( Views.iterable( input ).size(), numThreads );
 		Thread[] threads = SimpleMultiThreading.newThreads( numThreads );

@@ -30,16 +30,16 @@ package net.imglib2.algorithm.pde;
 import java.util.Vector;
 
 import net.imglib2.Cursor;
+import net.imglib2.FinalDimensions;
 import net.imglib2.algorithm.MultiThreadedBenchmarkAlgorithm;
 import net.imglib2.algorithm.OutputAlgorithm;
 import net.imglib2.img.Img;
 import net.imglib2.img.ImgFactory;
-import net.imglib2.img.array.ArrayImgFactory;
-import net.imglib2.img.cell.CellImgFactory;
 import net.imglib2.multithreading.Chunk;
 import net.imglib2.multithreading.SimpleMultiThreading;
 import net.imglib2.type.numeric.RealType;
 import net.imglib2.type.numeric.real.FloatType;
+import net.imglib2.util.Util;
 
 public class IsotropicDiffusionTensor <T extends RealType<T>>  extends MultiThreadedBenchmarkAlgorithm 
 implements OutputAlgorithm<Img<FloatType>> {
@@ -59,18 +59,9 @@ implements OutputAlgorithm<Img<FloatType>> {
 		}
 		tensorDims[dimensions.length] = dimensions.length * (dimensions.length - 1);
 
-		double size = 1;
-		for (long d : dimensions) {
-			size *= d;
-		}
-		ImgFactory< FloatType > factory;
-		if ( size >= Integer.MAX_VALUE ) {
-			factory = new CellImgFactory<FloatType>();
-		} else {
-			factory = new ArrayImgFactory< FloatType >();
-		}
+		ImgFactory< FloatType > factory = Util.getSuitableImgFactory( new FinalDimensions( dimensions ), new FloatType() );
 
-		this.D = factory.create(tensorDims, new FloatType());
+		this.D = factory.create( tensorDims );
 	}
 
 	@Override

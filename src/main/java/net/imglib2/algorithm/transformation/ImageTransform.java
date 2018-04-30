@@ -189,7 +189,7 @@ public class ImageTransform<T extends Type<T>> implements OutputAlgorithm<Random
 			return false;
 		
 		// create the new output image
-		transformed = outputImageFactory.create( newDim, Views.iterable( image ).firstElement().createVariable() );
+		transformed = outputImageFactory.create( newDim );
 
 		final Cursor<T> transformedIterator = transformed.localizingCursor();
 		final RealRandomAccess<T> interpolator = interpolatorFactory.create( image );

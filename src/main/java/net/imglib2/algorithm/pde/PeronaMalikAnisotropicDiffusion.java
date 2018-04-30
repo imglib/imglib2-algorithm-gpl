@@ -45,6 +45,7 @@ import net.imglib2.multithreading.SimpleMultiThreading;
 import net.imglib2.type.Type;
 import net.imglib2.type.numeric.RealType;
 import net.imglib2.type.numeric.real.FloatType;
+import net.imglib2.util.Util;
 import net.imglib2.view.ExtendedRandomAccessibleInterval;
 import net.imglib2.view.Views;
 
@@ -136,10 +137,7 @@ public class PeronaMalikAnisotropicDiffusion <T extends RealType<T>> extends Mul
 		} 
 		catch (IncompatibleTypeException e) 
 		{
-			if ( img.size() >= Integer.MAX_VALUE )
-				factory = new CellImgFactory<FloatType>();
-			else
-				factory = new ArrayImgFactory< FloatType >();
+			factory = Util.getSuitableImgFactory( img, new FloatType() );
 		}
 		
 		return factory;
@@ -159,7 +157,7 @@ public class PeronaMalikAnisotropicDiffusion <T extends RealType<T>> extends Mul
 		this.deltat = deltat;
 		this.fun = function;
 		this.processingTime = 0;
-		this.increment = factory.create(image, new FloatType());
+		this.increment = factory.create( image );
 		
 		// Protection against under/overflow
 		final T tmp = Views.iterable( image ).firstElement();

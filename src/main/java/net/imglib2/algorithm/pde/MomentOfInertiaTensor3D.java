@@ -27,9 +27,6 @@
 
 package net.imglib2.algorithm.pde;
 
-import edu.mines.jtk.la.DMatrix;
-import edu.mines.jtk.la.DMatrixEvd;
-
 import java.util.Vector;
 
 import net.imglib2.Cursor;
@@ -42,15 +39,17 @@ import net.imglib2.algorithm.region.localneighborhood.RectangleNeighborhoodGPL;
 import net.imglib2.exception.IncompatibleTypeException;
 import net.imglib2.img.Img;
 import net.imglib2.img.ImgFactory;
-import net.imglib2.img.array.ArrayImgFactory;
-import net.imglib2.img.cell.CellImgFactory;
 import net.imglib2.multithreading.Chunk;
 import net.imglib2.multithreading.SimpleMultiThreading;
 import net.imglib2.outofbounds.OutOfBoundsFactory;
 import net.imglib2.outofbounds.OutOfBoundsMirrorExpWindowingFactory;
 import net.imglib2.type.numeric.RealType;
 import net.imglib2.type.numeric.real.FloatType;
+import net.imglib2.util.Util;
 import net.imglib2.view.Views;
+
+import edu.mines.jtk.la.DMatrix;
+import edu.mines.jtk.la.DMatrixEvd;
 
 /**
  * A class to compute a diffusion tensor for anisotropic diffusion, based on
@@ -128,7 +127,7 @@ public class MomentOfInertiaTensor3D< T extends RealType< T >> extends MultiThre
 		}
 		catch ( IncompatibleTypeException e )
 		{
-			return ( input.size() > Integer.MAX_VALUE ) ? new CellImgFactory< FloatType >() : new ArrayImgFactory< FloatType >();
+			return Util.getSuitableImgFactory( input, new FloatType() );
 		}
 	}
 
@@ -183,7 +182,7 @@ public class MomentOfInertiaTensor3D< T extends RealType< T >> extends MultiThre
 		final int tensorDim = input.numDimensions(); // the dim to write the
 														// tensor components to.
 
-		D = imgFactory.create( tensorDims, new FloatType() );
+		D = imgFactory.create( tensorDims );
 
 		Vector< Chunk > chunks = SimpleMultiThreading.divideIntoChunks( Views.iterable( input ).size(), numThreads );
 		Thread[] threads = SimpleMultiThreading.newThreads( numThreads );

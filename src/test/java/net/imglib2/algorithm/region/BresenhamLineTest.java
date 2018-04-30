@@ -71,8 +71,8 @@ public class BresenhamLineTest {
 		
 		final int targetIntensity = 1;
 		
-		final ImgFactory< UnsignedByteType > imgFactory = new ArrayImgFactory<UnsignedByteType>();
-		Img<UnsignedByteType> image = imgFactory.create(new int[] { 50, 50, 50 }, new UnsignedByteType());
+		final ImgFactory< UnsignedByteType > imgFactory = new ArrayImgFactory<>( new UnsignedByteType() );
+		Img< UnsignedByteType > image = imgFactory.create( 50, 50, 50 );
 
 		long count = 0;
 		BresenhamLine<UnsignedByteType> line = new BresenhamLine<UnsignedByteType>(image, P1, P2);
