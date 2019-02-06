@@ -102,6 +102,7 @@ public class FFTConvolution< R extends RealType< R > >
 	boolean keepImgFFT = false;
 
 	private ExecutorService service;
+	private boolean is_service_local;
 
 	/**
 	 * Compute a Fourier space based convolution in-place (img will be replaced
@@ -508,6 +509,9 @@ public class FFTConvolution< R extends RealType< R > >
 			fftKernel = computeKernelFFT( fftIntervals.getB(), min, max, complexConjugate, kernel, fftFactory, service );
 
 		computeConvolution( fftImg, fftKernel, output, keepImgFFT, service );
+		
+		if ( is_service_local )
+			service.shutdownNow();
 	}
 
 	public static Pair< Interval, Interval > setupFFTs( final Interval imgInterval, final Interval kernelInterval, final long[] min, final long[] max )
@@ -687,13 +691,26 @@ public class FFTConvolution< R extends RealType< R > >
 	/**
 	 * Set the executor service to use.
 	 * 
+	 * When null, a new one will be created using as many {@link Thread}
+	 * as {@link Runtime#availableProcessors()}, which will be
+	 * {@link ExecutorService#shutdownNow()} when done.
+	 * 
+	 * Otherwise, the caller is responsible for shutting down
+	 * the provided {@link ExecutorService}.
+	 * 
+	 * When created locally, invoking {@link #convolve()} more than once
+	 * will throw an error.
+	 * 
 	 * @param service
 	 *            - Executor service to use.
 	 */
 	public void setExecutorService( final ExecutorService service )
 	{
 		if ( service == null )
+		{
 			this.service = Executors.newFixedThreadPool( Runtime.getRuntime( ).availableProcessors());
+			this.is_service_local = true;
+		}
 		else
 			this.service = service;
 	}
