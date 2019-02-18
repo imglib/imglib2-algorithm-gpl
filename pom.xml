@@ -54,7 +54,7 @@
 		<developer>
 			<id>tpietzsch</id>
 			<name>Tobias Pietzsch</name>
-			<url>http://imagej.net/User:Pietzsch</url>
+			<url>https://imagej.net/User:Pietzsch</url>
 			<roles>
 				<role>lead</role>
 				<role>developer</role>
@@ -67,7 +67,7 @@
 		<developer>
 			<id>StephanPreibisch</id>
 			<name>Stephan Preibisch</name>
-			<url>http://imagej.net/User:StephanP</url>
+			<url>https://imagej.net/User:StephanP</url>
 			<roles>
 				<role>founder</role>
 				<role>lead</role>
@@ -81,7 +81,7 @@
 		<developer>
 			<id>axtimwalde</id>
 			<name>Stephan Saalfeld</name>
-			<url>http://imagej.net/User:Saalfeld</url>
+			<url>https://imagej.net/User:Saalfeld</url>
 			<roles>
 				<role>founder</role>
 				<role>lead</role>
@@ -95,7 +95,7 @@
 		<developer>
 			<id>ctrueden</id>
 			<name>Curtis Rueden</name>
-			<url>http://imagej.net/User:Rueden</url>
+			<url>https://imagej.net/User:Rueden</url>
 			<roles>
 				<role>maintainer</role>
 			</roles>
@@ -107,27 +107,27 @@
 
 		<contributor>
 			<name>Larry Lindsey</name>
-			<url>http://imagej.net/User:Lindsey</url>
+			<url>https://imagej.net/User:Lindsey</url>
 			<properties><id>larrylindsey</id></properties>
 		</contributor>
 		<contributor>
 			<name>Jean-Yves Tinevez</name>
-			<url>http://imagej.net/User:JeanYvesTinevez</url>
+			<url>https://imagej.net/User:JeanYvesTinevez</url>
 			<properties><id>tinevez</id></properties>
 		</contributor>
 		<contributor>
 			<name>Barry DeZonia</name>
-			<url>http://imagej.net/User:Bdezonia</url>
+			<url>https://imagej.net/User:Bdezonia</url>
 			<properties><id>bdezonia</id></properties>
 		</contributor>
 		<contributor>
 			<name>Benjamin Schmid</name>
-			<url>http://imagej.net/User:Bene</url>
+			<url>https://imagej.net/User:Bene</url>
 			<properties><id>bene51</id></properties>
 		</contributor>
 		<contributor>
 			<name>Christian Dietz</name>
-			<url>http://imagej.net/User:Dietzc</url>
+			<url>https://imagej.net/User:Dietzc</url>
 			<properties><id>dietzc</id></properties>
 		</contributor>
 		<contributor>
@@ -136,7 +136,7 @@
 		</contributor>
 		<contributor>
 			<name>Johannes Schindelin</name>
-			<url>http://imagej.net/User:Schindelin</url>
+			<url>https://imagej.net/User:Schindelin</url>
 			<properties><id>dscho</id></properties>
 		</contributor>
 	</contributors>
@@ -145,7 +145,7 @@
 		<!-- NB: for SciJava dependencies -->
 		<repository>
 			<id>imagej.public</id>
-			<url>http://maven.imagej.net/content/groups/public</url>
+			<url>https://maven.imagej.net/content/groups/public</url>
 		</repository>
 	</repositories>
 
