@@ -36,8 +36,7 @@ import net.imglib2.FinalInterval;
 import net.imglib2.Interval;
 import net.imglib2.RandomAccessible;
 import net.imglib2.RandomAccessibleInterval;
-import net.imglib2.algorithm.fft2.FFT;
-import net.imglib2.algorithm.fft2.FFTMethods;import net.imglib2.exception.IncompatibleTypeException;
+import net.imglib2.exception.IncompatibleTypeException;
 import net.imglib2.img.Img;
 import net.imglib2.img.ImgFactory;
 import net.imglib2.img.array.ArrayImgFactory;
@@ -494,6 +493,27 @@ public class FFTConvolution< R extends RealType< R > >
 
 	public void convolve()
 	{
+		if ( service == null )
+		{
+			final int numThreads = Runtime.getRuntime().availableProcessors();
+			final ExecutorService executor = Executors.newFixedThreadPool( numThreads );
+			try
+			{
+				convolve( executor );
+			}
+			finally
+			{
+				executor.shutdown();
+			}
+		}
+		else
+		{
+			convolve( service );
+		}
+	}
+
+	private void convolve( final ExecutorService executor )
+	{
 		final long[] min = new long[ img.numDimensions() ];
 		final long[] max = new long[ img.numDimensions() ];
 
@@ -686,16 +706,20 @@ public class FFTConvolution< R extends RealType< R > >
 
 	/**
 	 * Set the executor service to use.
-	 * 
+	 *
+	 * When null, a temporary one will be created in {@link #convolve()}, using
+	 * as many {@link Thread}s as {@link Runtime#availableProcessors()}, which
+	 * will be {@link ExecutorService#shutdownNow()} when done.
+	 *
+	 * Otherwise, the caller is responsible for shutting down the provided
+	 * {@link ExecutorService}.
+	 *
 	 * @param service
 	 *            - Executor service to use.
 	 */
 	public void setExecutorService( final ExecutorService service )
 	{
-		if ( service == null )
-			this.service = Executors.newFixedThreadPool( Runtime.getRuntime( ).availableProcessors());
-		else
-			this.service = service;
+		this.service = service;
 	}
 
 	/**
