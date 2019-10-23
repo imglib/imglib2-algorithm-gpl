@@ -152,6 +152,7 @@
 
 	<properties>
 		<package-name>net.imglib2.algorithm</package-name>
+		<automatic-module-name>net.imglib2.algorithm.gpl</automatic-module-name>
 
 		<license.licenseName>gpl_v2</license.licenseName>
 		<license.projectName>ImgLib2: a general-purpose, multidimensional image processing library.</license.projectName>
