@@ -521,13 +521,13 @@ public class FFTConvolution< R extends RealType< R > >
 
 		// compute the FFT of the image if it does not exist yet
 		if ( fftImg == null )
-			fftImg = computeImgFFT( fftIntervals.getA(), img, fftFactory, service );
+			fftImg = computeImgFFT( fftIntervals.getA(), img, fftFactory, executor );
 
 		// compute the FFT of the kernel if it does not exist yet
 		if ( fftKernel == null )
-			fftKernel = computeKernelFFT( fftIntervals.getB(), min, max, complexConjugate, kernel, fftFactory, service );
+			fftKernel = computeKernelFFT( fftIntervals.getB(), min, max, complexConjugate, kernel, fftFactory, executor );
 
-		computeConvolution( fftImg, fftKernel, output, keepImgFFT, service );
+		computeConvolution( fftImg, fftKernel, output, keepImgFFT, executor );
 	}
 
 	public static Pair< Interval, Interval > setupFFTs( final Interval imgInterval, final Interval kernelInterval, final long[] min, final long[] max )
