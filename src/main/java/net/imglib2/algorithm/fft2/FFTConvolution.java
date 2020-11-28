@@ -97,6 +97,10 @@ public class FFTConvolution< R extends RealType< R > >
 	// correlation: complexConjugate = true 
 	boolean complexConjugate = false;
 
+	// convolution: div = false
+	// deconvolution/correlation = true
+	boolean div = false;
+
 	// by default we do not keep the image
 	boolean keepImgFFT = false;
 
@@ -440,6 +444,19 @@ public class FFTConvolution< R extends RealType< R > >
 		return complexConjugate;
 	}
 
+	/**
+	 * @param div - perform deconvolution instead of convolution.
+	 */
+	public void setDiv( final boolean div )
+	{
+		this.div = div;
+	}
+
+	public boolean getDiv()
+	{
+		return div;
+	}
+
 	public void setKeepImgFFT( final boolean keep )
 	{
 		this.keepImgFFT = keep;
@@ -527,7 +544,7 @@ public class FFTConvolution< R extends RealType< R > >
 		if ( fftKernel == null )
 			fftKernel = computeKernelFFT( fftIntervals.getB(), min, max, complexConjugate, kernel, fftFactory, executor );
 
-		computeConvolution( fftImg, fftKernel, output, keepImgFFT, executor );
+		computeConvolution( fftImg, fftKernel, output, keepImgFFT, div, executor );
 	}
 
 	public static Pair< Interval, Interval > setupFFTs( final Interval imgInterval, final Interval kernelInterval, final long[] min, final long[] max )
@@ -611,6 +628,7 @@ public class FFTConvolution< R extends RealType< R > >
 			final Img< ComplexFloatType > fftKernel,
 			final RandomAccessibleInterval< R > output,
 			final boolean keepImgFFT,
+			final boolean div,
 			final ExecutorService service )
 	{
 		final Img< ComplexFloatType > fftconvolved;
@@ -621,13 +639,21 @@ public class FFTConvolution< R extends RealType< R > >
 			fftconvolved = fftImg;
 
 		// multiply in place
-		multiplyComplex( fftconvolved, fftKernel );
+		multiplyDivideComplex( fftconvolved, fftKernel, div );
 
 		// inverse FFT in place
 		FFT.complexToRealUnpad( fftconvolved, output, service );
 	}
 
-	final public static < R extends RealType< R > > void convolve( final RandomAccessible< R > img, final Interval imgInterval, final RandomAccessible< R > kernel, final Interval kernelInterval, final RandomAccessibleInterval< R > output, final ImgFactory< ComplexFloatType > factory, final int numThreads )
+	final public static < R extends RealType< R > > void convolve(
+			final RandomAccessible< R > img,
+			final Interval imgInterval,
+			final RandomAccessible< R > kernel,
+			final Interval kernelInterval,
+			final RandomAccessibleInterval< R > output,
+			final ImgFactory< ComplexFloatType > factory,
+			final boolean div,
+			final ExecutorService service )
 	{
 		final int numDimensions = imgInterval.numDimensions();
 
@@ -671,23 +697,27 @@ public class FFTConvolution< R extends RealType< R > >
 		final RandomAccessibleInterval< R > imgInput = Views.interval( img, imgConvolutionInterval );
 
 		// compute the FFT's
-		final Img< ComplexFloatType > fftImg = FFT.realToComplex( imgInput, factory, numThreads );
-		final Img< ComplexFloatType > fftKernel = FFT.realToComplex( kernelInput, factory, numThreads );
+		final Img< ComplexFloatType > fftImg = FFT.realToComplex( imgInput, factory, service );
+		final Img< ComplexFloatType > fftKernel = FFT.realToComplex( kernelInput, factory, service );
 
 		// multiply in place
-		multiplyComplex( fftImg, fftKernel );
+		multiplyDivideComplex( fftImg, fftKernel, div );
 
 		// inverse FFT in place
-		FFT.complexToRealUnpad( fftImg, output, numThreads );
+		FFT.complexToRealUnpad( fftImg, output, service );
 	}
 
-	final public static void multiplyComplex( final Img< ComplexFloatType > img, final Img< ComplexFloatType > kernel )
+	final public static void multiplyDivideComplex( final Img< ComplexFloatType > img, final Img< ComplexFloatType > kernel, final boolean div )
 	{
 		final Cursor< ComplexFloatType > cursorA = img.cursor();
 		final Cursor< ComplexFloatType > cursorB = kernel.cursor();
 
-		while ( cursorA.hasNext() )
-			cursorA.next().mul( cursorB.next() );
+		if ( div )
+			while ( cursorA.hasNext() )
+				cursorA.next().div( cursorB.next() );
+		else
+			while ( cursorA.hasNext() )
+				cursorA.next().mul( cursorB.next() );
 	}
 
 	protected static ImgFactory< ComplexFloatType > getFFTFactory( final Img< ? extends RealType< ? > > img )
