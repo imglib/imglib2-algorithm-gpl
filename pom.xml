@@ -11,7 +11,7 @@
 
 	<groupId>net.imglib2</groupId>
 	<artifactId>imglib2-algorithm-gpl</artifactId>
-	<version>0.2.6-SNAPSHOT</version>
+	<version>0.3.1-SNAPSHOT</version>
 
 	<name>ImgLib2 Algorithms: GPL</name>
 	<description>Useful image processing algorithms, licensed under the GPL.</description>
