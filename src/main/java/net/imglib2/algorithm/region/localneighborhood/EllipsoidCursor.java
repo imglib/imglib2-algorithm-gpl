@@ -288,13 +288,8 @@ public class EllipsoidCursor<T> extends AbstractNeighborhoodCursor<T> {
 	}
 
 	@Override
-	public Cursor<T> copyCursor() {
+	public Cursor<T> copy() {
 		return new EllipsoidCursor<T>(this.neighborhood);
-	}
-
-	@Override
-	public Sampler<T> copy() {
-		return copyCursor();
 	}
 
 	@Override
