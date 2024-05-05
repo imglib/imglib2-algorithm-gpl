@@ -55,7 +55,7 @@ public class PeakFitterTest {
 	private static final double LOCALIZATION_TOLERANCE = 0.1d;
 
 	@Test
-	public void testSymetricGaussian() {
+	public void testSymmetricGaussian() {
 		
 		int width = 200;
 		int height = 200;
@@ -64,8 +64,8 @@ public class PeakFitterTest {
 		long[] dimensions = new long[] { width, height };
 		ArrayImg<UnsignedByteType,ByteArray> img = ArrayImgs.unsignedBytes(dimensions);
 		
-		Collection<Localizable> peaks = new HashSet<Localizable>(nspots);
-		Map<Localizable, double[]> groundTruth = new HashMap<Localizable, double[]>(nspots);
+		Collection<Localizable> peaks = new HashSet<>(nspots);
+		Map<Localizable, double[]> groundTruth = new HashMap<>(nspots);
 		
 		for (int i = 1; i < nspots; i++) {
 			
@@ -88,7 +88,7 @@ public class PeakFitterTest {
 		}
 
 		// Instantiate fitter once
-		PeakFitter<UnsignedByteType> fitter = new PeakFitter<UnsignedByteType>(img, peaks, 
+		PeakFitter<UnsignedByteType> fitter = new PeakFitter<>(img, peaks,
 				new LevenbergMarquardtSolver(), new Gaussian(), new MLGaussianEstimator(2d, 2));
 		
 		if ( !fitter.checkInput() || !fitter.process()) {
@@ -106,7 +106,7 @@ public class PeakFitterTest {
 			assertEquals("Bad accuracy on amplitude parameter A: ", truth[2], params[2], TOLERANCE * truth[2]);
 			assertEquals("Bad accuracy on peak location x0: ", truth[0], params[0], LOCALIZATION_TOLERANCE);
 			assertEquals("Bad accuracy on peak location y0: ", truth[1], params[1], LOCALIZATION_TOLERANCE);
-			assertEquals("Bad accuracy on peak paramter b: ", truth[3], params[3], TOLERANCE * truth[3]);
+			assertEquals("Bad accuracy on peak parameter b: ", truth[3], params[3], TOLERANCE * truth[3]);
 		}
 	}
 	
@@ -120,8 +120,8 @@ public class PeakFitterTest {
 		long[] dimensions = new long[] { width, height };
 		ArrayImg<UnsignedByteType,ByteArray> img = ArrayImgs.unsignedBytes(dimensions);
 		
-		Collection<Localizable> peaks = new HashSet<Localizable>(nspots);
-		Map<Localizable, double[]> groundTruth = new HashMap<Localizable, double[]>(nspots);
+		Collection<Localizable> peaks = new HashSet<>(nspots);
+		Map<Localizable, double[]> groundTruth = new HashMap<>(nspots);
 		
 		for (int i = 1; i < nspots; i++) {
 			
@@ -145,7 +145,7 @@ public class PeakFitterTest {
 		}
 
 		// Instantiate fitter once
-		PeakFitter<UnsignedByteType> fitter = new PeakFitter<UnsignedByteType>(img, peaks, 
+		PeakFitter<UnsignedByteType> fitter = new PeakFitter<>(img, peaks,
 				new LevenbergMarquardtSolver(), new EllipticGaussianOrtho(), new MLEllipticGaussianEstimator(new double[] { 2d, 2d}));
 		
 		if ( !fitter.checkInput() || !fitter.process()) {
@@ -163,8 +163,8 @@ public class PeakFitterTest {
 			assertEquals("Bad accuracy on amplitude parameter A: ", truth[2], params[2], TOLERANCE * truth[2]);
 			assertEquals("Bad accuracy on peak location x0: ", truth[0], params[0], LOCALIZATION_TOLERANCE);
 			assertEquals("Bad accuracy on peak location y0: ", truth[1], params[1], LOCALIZATION_TOLERANCE);
-			assertEquals("Bad accuracy on peak paramter bx: ", truth[3], params[3], TOLERANCE * truth[3]);
-			assertEquals("Bad accuracy on peak paramter by: ", truth[4], params[4], TOLERANCE * truth[4]);
+			assertEquals("Bad accuracy on peak parameter bx: ", truth[3], params[3], TOLERANCE * truth[3]);
+			assertEquals("Bad accuracy on peak parameter by: ", truth[4], params[4], TOLERANCE * truth[4]);
 			
 //			System.out.println(String.format("- For " + peak + "\n - Found      : " +
 //					"A = %6.2f, x0 = %6.2f, y0 = %6.2f, sx = %5.2f, sy = %5.2f", 
