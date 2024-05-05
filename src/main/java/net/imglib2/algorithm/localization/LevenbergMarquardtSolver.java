@@ -171,19 +171,29 @@ public class LevenbergMarquardtSolver implements FunctionFitter {
 		double[][] H = new double[nparm][nparm];
 		double[] g = new double[nparm];
 
+		double[] valf = new double[npts];
+		double[][] gradf = new double[nparm][npts];
+
 		int iter = 0;
 		int term = 0;	// termination count test
 
 		do {
 			++iter;
 
+			// precompute values and gradients of f
+			for (int i = 0; i < npts; i++) {
+				valf[i] = f.val(x[i], a);
+				for (int k = 0; k < nparm; k++) {
+					gradf[k][i] = f.grad(x[i], a, k);
+				}
+			}
+
 			// hessian approximation
 			for( int r = 0; r < nparm; r++ ) {
 				for( int c = 0; c < nparm; c++ ) {
 					H[r][c] = 0.;
 					for( int i = 0; i < npts; i++ ) {
-						double[] xi = x[i];
-						H[r][c] += f.grad(xi, a, r) * f.grad(xi, a, c);
+						H[r][c] += gradf[r][i] * gradf[c][i];
 					}  //npts
 				} //c
 			} //r
@@ -196,8 +206,7 @@ public class LevenbergMarquardtSolver implements FunctionFitter {
 			for( int r = 0; r < nparm; r++ ) {
 				g[r] = 0.;
 				for( int i = 0; i < npts; i++ ) {
-					double[] xi = x[i];
-					g[r] += (y[i]-f.val(xi,a)) * f.grad(xi, a, r);
+					g[r] += (y[i]-valf[i]) * gradf[r][i];
 				}
 			} //npts
 			
