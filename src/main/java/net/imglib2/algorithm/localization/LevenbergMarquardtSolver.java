@@ -30,7 +30,7 @@ package net.imglib2.algorithm.localization;
 import Jama.Matrix;
 
 /**
- * A plain implementation of Levenberg-Marquardt least-square curve fitting algorithm.
+ * A plain implementation of Levenberg-Marquardt least-squares curve fitting algorithm.
  * This solver makes use of only the function value and its gradient. That is:
  * candidate functions need only to implement the {@link FitFunction#val(double[], double[])}
  * and {@link FitFunction#grad(double[], double[], int)} methods to operate with this
@@ -48,7 +48,7 @@ public class LevenbergMarquardtSolver implements FunctionFitter {
 	private final double termEpsilon;
 	
 	/**
-	 * Creates a new Levenberg-Marquardt solver for least-square curve fitting problems. 
+	 * Creates a new Levenberg-Marquardt solver for least-squares curve fitting problems.
 	 * @param lambda blend between steepest descent (lambda high) and
 	 *	jump to bottom of quadratic (lambda zero). Start with 0.001.
 	 * @param termEpsilon termination accuracy (0.01)
@@ -66,11 +66,11 @@ public class LevenbergMarquardtSolver implements FunctionFitter {
 	
 	@Override
 	public String toString() {
-		return "Levenberg-Marquardt least-square curve fitting algorithm";
+		return "Levenberg-Marquardt least-squares curve fitting algorithm";
 	}
 	
 	/**
-	 * Creates a new Levenberg-Marquardt solver for least-square curve fitting problems,
+	 * Creates a new Levenberg-Marquardt solver for least-squares curve fitting problems,
 	 * with default parameters set to:
 	 * <ul>
 	 * 	<li> <code>lambda  = 1e-3</code>
@@ -88,7 +88,7 @@ public class LevenbergMarquardtSolver implements FunctionFitter {
 	
 	
 	@Override
-	public void fit(double[][] x, double[] y, double[] a, FitFunction f) throws Exception {
+	public void fit(double[][] x, double[] y, double[] a, FitFunction f) {
 		solve(x, a, y, f, lambda, termEpsilon, maxIteration);
 	}
 	
@@ -101,7 +101,7 @@ public class LevenbergMarquardtSolver implements FunctionFitter {
 	/**
 	 * Calculate the current sum-squared-error
 	 */
-	public static final double chiSquared(final double[][] x, final double[] a, final double[] y, final FitFunction f)  {
+	public static double chiSquared(final double[][] x, final double[] a, final double[] y, final FitFunction f)  {
 		int npts = y.length;
 		double sum = 0.;
 
@@ -128,8 +128,8 @@ public class LevenbergMarquardtSolver implements FunctionFitter {
 	 *
 	 * @return the number of iteration used by minimization
 	 */
-	public static final int solve(double[][] x, double[] a, double[] y, FitFunction f,
-			double lambda, double termepsilon, int maxiter) throws Exception  {
+	public static int solve(double[][] x, double[] a, double[] y, FitFunction f,
+							double lambda, double termepsilon, int maxiter) {
 		int npts = y.length;
 		int nparm = a.length;
 	
@@ -171,7 +171,7 @@ public class LevenbergMarquardtSolver implements FunctionFitter {
 				}
 			} //npts
 			
-			double[] d = null;
+			double[] d;
             try {
                     d = (new Matrix(H)).lu().solve(new Matrix(g, nparm)).getRowPackedCopy();
             } catch (RuntimeException re) {
