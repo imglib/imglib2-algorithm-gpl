@@ -30,9 +30,9 @@ import net.imglib2.Localizable;
 
 
 /**
- * An fit initializer suitable for the fitting of gaussian peaks (
- * {@link Gaussian}, on n-dimensional image data. It uses plain
- * maximum-likelohood estimator for a normal distribution.
+ * A fit initializer suitable for the fitting of gaussian peaks (
+ * {@link Gaussian}), on n-dimensional image data. It uses plain
+ * maximum-likelihood estimator for a normal distribution.
  * <p>
  * The problem dimensionality is specified at construction by <code>nDims</code>
  * parameter.
@@ -42,8 +42,8 @@ import net.imglib2.Localizable;
  * <p>
  * Parameters estimation returned by
  * {@link #initializeFit(Localizable, Observation)} is based on
- * maximum-likelihood esimtation, which requires the background of the image
- * (out of peaks) to be close to 0. Returned parameters are ordered as follow:
+ * maximum-likelihood estimation, which requires the background of the image
+ * (out of peaks) to be close to 0. Returned parameters are ordered as follows:
  * 
  * <pre>
  * 0.			A
@@ -81,7 +81,7 @@ public class MLGaussianEstimator implements StartPointEstimator {
 	
 	@Override
 	public String toString() {
-		return "Maximum-likelihood estimator for symetric gaussian peaks";
+		return "Maximum-likelihood estimator for symmetric gaussian peaks";
 	}
 
 
@@ -121,7 +121,7 @@ public class MLGaussianEstimator implements StartPointEstimator {
 		}
 
 		// Estimate b in all dimension
-		double bs[] = new double[nDims];
+		double[] bs = new double[nDims];
 		for (int j = 0; j < nDims; j++) {
 			double C = 0;
 			double dx;
