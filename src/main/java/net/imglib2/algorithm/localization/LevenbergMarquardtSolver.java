@@ -126,11 +126,12 @@ public class LevenbergMarquardtSolver implements FunctionFitter {
 	 * Minimize E = sum {(y[k] - f(x[k],a)) }^2
 	 * Note that function implements the value and gradient of f(x,a),
 	 * NOT the value and gradient of E with respect to a!
-	 * This is deprecated, use {@link LevenbergMarquardtSolver@fit(double[][], double[], double[], FitFunction, int, double, double)} instead.
+	 * This is deprecated, use {@link LevenbergMarquardtSolver#fit(double[][], double[], double[], FitFunction, int, double, double)} instead.
 	 * 
 	 * @param x array of domain points, each may be multidimensional
 	 * @param a the parameters/state of the model
 	 * @param y corresponding array of values
+	 * @param f the function to fit
 	 * @param lambda blend between steepest descent (lambda high) and
 	 *	jump to bottom of quadratic (lambda zero). Start with 0.001.
 	 * @param termepsilon termination accuracy (0.01)
@@ -152,6 +153,7 @@ public class LevenbergMarquardtSolver implements FunctionFitter {
 	 * @param x array of domain points, each may be multidimensional
 	 * @param y corresponding array of values
 	 * @param a the parameters/state of the model
+	 * @param f the function to fit
 	 * @param maxiter	stop and return after this many iterations if not done
 	 * @param lambda blend between steepest descent (lambda high) and
 	 *	jump to bottom of quadratic (lambda zero). Start with 0.001.
