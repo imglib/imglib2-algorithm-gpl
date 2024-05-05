@@ -89,7 +89,7 @@ public class LevenbergMarquardtSolver implements FunctionFitter {
 	
 	@Override
 	public void fit(double[][] x, double[] y, double[] a, FitFunction f) {
-		solve(x, a, y, f, lambda, termEpsilon, maxIteration);
+		fit(x, y, a, f, maxIteration, lambda, termEpsilon);
 	}
 	
 	
@@ -163,7 +163,7 @@ public class LevenbergMarquardtSolver implements FunctionFitter {
 		int npts = y.length;
 		int nparm = a.length;
 	
-		double e0 = chiSquared(x, a, y, f);
+		double e0 = computeSquaredError(x, y, a, f);
 		boolean done = false;
 
 		// g = gradient, H = hessian, d = step to minimum
@@ -219,7 +219,7 @@ public class LevenbergMarquardtSolver implements FunctionFitter {
                     continue;
             }
             double[] na = (new Matrix(a, nparm)).plus(new Matrix(d,nparm)).getRowPackedCopy();
-            double e1 = chiSquared(x, na, y, f);
+            double e1 = computeSquaredError(x, y, na, f);
 			
 			// termination test (slightly different than NR)
 			if (Math.abs(e1-e0) > termepsilon) {
