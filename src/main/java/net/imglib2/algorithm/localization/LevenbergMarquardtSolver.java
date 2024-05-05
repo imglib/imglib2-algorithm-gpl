@@ -100,27 +100,37 @@ public class LevenbergMarquardtSolver implements FunctionFitter {
 	
 	/**
 	 * Calculate the current sum-squared-error
+	 * This is deprecated in favor of {@link LevenbergMarquardtSolver#computeSquaredError(double[][], double[], double[], FitFunction)}.
 	 */
-	public static double chiSquared(final double[][] x, final double[] a, final double[] y, final FitFunction f)  {
+	@Deprecated
+	public static double chiSquared(final double[][] x, final double[] a, final double[] y, final FitFunction f) {
+		return computeSquaredError(x, y, a, f);
+	}
+
+	/**
+	 * Calculate the squared least-squares error of the given data.
+	 */
+	public static double computeSquaredError(final double[][] x, final double[] y, final double[] a, final FitFunction f) {
 		int npts = y.length;
 		double sum = 0.;
 
 		for( int i = 0; i < npts; i++ ) {
 			double d = y[i] - f.val(x[i], a);
-			sum = sum + (d*d);
+			sum += d * d;
 		}
 
 		return sum;
-	} //chiSquared
+	}
 
 	/**
 	 * Minimize E = sum {(y[k] - f(x[k],a)) }^2
 	 * Note that function implements the value and gradient of f(x,a),
 	 * NOT the value and gradient of E with respect to a!
+	 * This is deprecated, use {@link LevenbergMarquardtSolver@fit(double[][], double[], double[], FitFunction, int, double, double)} instead.
 	 * 
 	 * @param x array of domain points, each may be multidimensional
-	 * @param y corresponding array of values
 	 * @param a the parameters/state of the model
+	 * @param y corresponding array of values
 	 * @param lambda blend between steepest descent (lambda high) and
 	 *	jump to bottom of quadratic (lambda zero). Start with 0.001.
 	 * @param termepsilon termination accuracy (0.01)
@@ -128,8 +138,28 @@ public class LevenbergMarquardtSolver implements FunctionFitter {
 	 *
 	 * @return the number of iteration used by minimization
 	 */
+	@Deprecated
 	public static int solve(double[][] x, double[] a, double[] y, FitFunction f,
 							double lambda, double termepsilon, int maxiter) {
+		return fit(x, y, a, f, maxiter, lambda, termepsilon);
+	}
+
+	/**
+	 * Minimize E = sum {(y[k] - f(x[k],a)) }^2
+	 * Note that function implements the value and gradient of f(x,a),
+	 * NOT the value and gradient of E with respect to a!
+	 *
+	 * @param x array of domain points, each may be multidimensional
+	 * @param y corresponding array of values
+	 * @param a the parameters/state of the model
+	 * @param maxiter	stop and return after this many iterations if not done
+	 * @param lambda blend between steepest descent (lambda high) and
+	 *	jump to bottom of quadratic (lambda zero). Start with 0.001.
+	 * @param termepsilon termination accuracy (0.01)
+	 *
+	 * @return the number of iteration used by minimization
+	 */
+	public static int fit(double[][] x, double[] y, double[] a, FitFunction f, int maxiter, double lambda, double termepsilon) {
 		int npts = y.length;
 		int nparm = a.length;
 	
