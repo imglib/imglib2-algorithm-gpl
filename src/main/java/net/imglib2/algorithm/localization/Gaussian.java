@@ -28,7 +28,7 @@
 package net.imglib2.algorithm.localization;
 
 /**
- * A n-dimensional, symmetric Gaussian peak function.
+ * An n-dimensional, symmetric Gaussian peak function.
  * <p>
  * This fitting target function is defined over dimension <code>n</code>, by the
  * following <code>n+2</code> parameters:
@@ -70,7 +70,7 @@ public class Gaussian implements FitFunction {
 	}
 
 	/**
-	 * Partial derivatives indices are ordered as follow:
+	 * Partial derivatives indices are ordered as follows:
 	 * <pre>k = 0..n-1  - x_i (with i = k)
 	 *k = n       - A
 	 *k = n+1     - b</pre> 

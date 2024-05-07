@@ -30,7 +30,7 @@ package net.imglib2.algorithm.localization;
 import Jama.Matrix;
 
 /**
- * A plain implementation of Levenberg-Marquardt least-square curve fitting algorithm.
+ * A plain implementation of Levenberg-Marquardt least-squares curve fitting algorithm.
  * This solver makes use of only the function value and its gradient. That is:
  * candidate functions need only to implement the {@link FitFunction#val(double[], double[])}
  * and {@link FitFunction#grad(double[], double[], int)} methods to operate with this
@@ -48,7 +48,7 @@ public class LevenbergMarquardtSolver implements FunctionFitter {
 	private final double termEpsilon;
 	
 	/**
-	 * Creates a new Levenberg-Marquardt solver for least-square curve fitting problems. 
+	 * Creates a new Levenberg-Marquardt solver for least-squares curve fitting problems.
 	 * @param lambda blend between steepest descent (lambda high) and
 	 *	jump to bottom of quadratic (lambda zero). Start with 0.001.
 	 * @param termEpsilon termination accuracy (0.01)
@@ -66,11 +66,11 @@ public class LevenbergMarquardtSolver implements FunctionFitter {
 	
 	@Override
 	public String toString() {
-		return "Levenberg-Marquardt least-square curve fitting algorithm";
+		return "Levenberg-Marquardt least-squares curve fitting algorithm";
 	}
 	
 	/**
-	 * Creates a new Levenberg-Marquardt solver for least-square curve fitting problems,
+	 * Creates a new Levenberg-Marquardt solver for least-squares curve fitting problems,
 	 * with default parameters set to:
 	 * <ul>
 	 * 	<li> <code>lambda  = 1e-3</code>
@@ -83,13 +83,13 @@ public class LevenbergMarquardtSolver implements FunctionFitter {
 	}
 	
 	/*
-	 * MEETHODS
+	 * METHODS
 	 */
 	
 	
 	@Override
-	public void fit(double[][] x, double[] y, double[] a, FitFunction f) throws Exception {
-		solve(x, a, y, f, lambda, termEpsilon, maxIteration);
+	public void fit(double[][] x, double[] y, double[] a, FitFunction f) {
+		fit(x, y, a, f, maxIteration, lambda, termEpsilon);
 	}
 	
 	
@@ -100,27 +100,38 @@ public class LevenbergMarquardtSolver implements FunctionFitter {
 	
 	/**
 	 * Calculate the current sum-squared-error
+	 * This is deprecated in favor of {@link LevenbergMarquardtSolver#computeSquaredError(double[][], double[], double[], FitFunction)}.
 	 */
-	public static final double chiSquared(final double[][] x, final double[] a, final double[] y, final FitFunction f)  {
+	@Deprecated
+	public static double chiSquared(final double[][] x, final double[] a, final double[] y, final FitFunction f) {
+		return computeSquaredError(x, y, a, f);
+	}
+
+	/**
+	 * Calculate the squared least-squares error of the given data.
+	 */
+	public static double computeSquaredError(final double[][] x, final double[] y, final double[] a, final FitFunction f) {
 		int npts = y.length;
 		double sum = 0.;
 
 		for( int i = 0; i < npts; i++ ) {
 			double d = y[i] - f.val(x[i], a);
-			sum = sum + (d*d);
+			sum += d * d;
 		}
 
 		return sum;
-	} //chiSquared
+	}
 
 	/**
 	 * Minimize E = sum {(y[k] - f(x[k],a)) }^2
 	 * Note that function implements the value and gradient of f(x,a),
 	 * NOT the value and gradient of E with respect to a!
+	 * This is deprecated, use {@link LevenbergMarquardtSolver#fit(double[][], double[], double[], FitFunction, int, double, double)} instead.
 	 * 
 	 * @param x array of domain points, each may be multidimensional
-	 * @param y corresponding array of values
 	 * @param a the parameters/state of the model
+	 * @param y corresponding array of values
+	 * @param f the function to fit
 	 * @param lambda blend between steepest descent (lambda high) and
 	 *	jump to bottom of quadratic (lambda zero). Start with 0.001.
 	 * @param termepsilon termination accuracy (0.01)
@@ -128,12 +139,33 @@ public class LevenbergMarquardtSolver implements FunctionFitter {
 	 *
 	 * @return the number of iteration used by minimization
 	 */
-	public static final int solve(double[][] x, double[] a, double[] y, FitFunction f,
-			double lambda, double termepsilon, int maxiter) throws Exception  {
+	@Deprecated
+	public static int solve(double[][] x, double[] a, double[] y, FitFunction f,
+							double lambda, double termepsilon, int maxiter) {
+		return fit(x, y, a, f, maxiter, lambda, termepsilon);
+	}
+
+	/**
+	 * Minimize E = sum {(y[k] - f(x[k],a)) }^2
+	 * Note that function implements the value and gradient of f(x,a),
+	 * NOT the value and gradient of E with respect to a!
+	 *
+	 * @param x array of domain points, each may be multidimensional
+	 * @param y corresponding array of values
+	 * @param a the parameters/state of the model
+	 * @param f the function to fit
+	 * @param maxiter	stop and return after this many iterations if not done
+	 * @param lambda blend between steepest descent (lambda high) and
+	 *	jump to bottom of quadratic (lambda zero). Start with 0.001.
+	 * @param termepsilon termination accuracy (0.01)
+	 *
+	 * @return the number of iteration used by minimization
+	 */
+	public static int fit(double[][] x, double[] y, double[] a, FitFunction f, int maxiter, double lambda, double termepsilon) {
 		int npts = y.length;
 		int nparm = a.length;
 	
-		double e0 = chiSquared(x, a, y, f);
+		double e0 = computeSquaredError(x, y, a, f);
 		boolean done = false;
 
 		// g = gradient, H = hessian, d = step to minimum
@@ -141,19 +173,29 @@ public class LevenbergMarquardtSolver implements FunctionFitter {
 		double[][] H = new double[nparm][nparm];
 		double[] g = new double[nparm];
 
+		double[] valf = new double[npts];
+		double[][] gradf = new double[nparm][npts];
+
 		int iter = 0;
 		int term = 0;	// termination count test
 
 		do {
 			++iter;
 
+			// precompute values and gradients of f
+			for (int i = 0; i < npts; i++) {
+				valf[i] = f.val(x[i], a);
+				for (int k = 0; k < nparm; k++) {
+					gradf[k][i] = f.grad(x[i], a, k);
+				}
+			}
+
 			// hessian approximation
 			for( int r = 0; r < nparm; r++ ) {
 				for( int c = 0; c < nparm; c++ ) {
 					H[r][c] = 0.;
 					for( int i = 0; i < npts; i++ ) {
-						double[] xi = x[i];
-						H[r][c] += f.grad(xi, a, r) * f.grad(xi, a, c);
+						H[r][c] += gradf[r][i] * gradf[c][i];
 					}  //npts
 				} //c
 			} //r
@@ -166,12 +208,11 @@ public class LevenbergMarquardtSolver implements FunctionFitter {
 			for( int r = 0; r < nparm; r++ ) {
 				g[r] = 0.;
 				for( int i = 0; i < npts; i++ ) {
-					double[] xi = x[i];
-					g[r] += (y[i]-f.val(xi,a)) * f.grad(xi, a, r);
+					g[r] += (y[i]-valf[i]) * gradf[r][i];
 				}
 			} //npts
 			
-			double[] d = null;
+			double[] d;
             try {
                     d = (new Matrix(H)).lu().solve(new Matrix(g, nparm)).getRowPackedCopy();
             } catch (RuntimeException re) {
@@ -180,7 +221,7 @@ public class LevenbergMarquardtSolver implements FunctionFitter {
                     continue;
             }
             double[] na = (new Matrix(a, nparm)).plus(new Matrix(d,nparm)).getRowPackedCopy();
-            double e1 = chiSquared(x, na, y, f);
+            double e1 = computeSquaredError(x, y, na, f);
 			
 			// termination test (slightly different than NR)
 			if (Math.abs(e1-e0) > termepsilon) {

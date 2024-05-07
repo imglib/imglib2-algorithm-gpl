@@ -39,7 +39,6 @@ import net.imglib2.RandomAccessibleInterval;
 import net.imglib2.algorithm.Benchmark;
 import net.imglib2.algorithm.MultiThreaded;
 import net.imglib2.algorithm.OutputAlgorithm;
-import net.imglib2.img.Img;
 import net.imglib2.type.numeric.RealType;
 
 /**
@@ -131,7 +130,7 @@ public class PeakFitter <T extends RealType<T>> implements MultiThreaded, Output
 						double[] I = data.I;
 						fitter.fit(X, I, params, peakFunction);
 					} catch (Exception e) {
-						errorHolder.append(BASE_ERROR_MESSAGE + 
+						errorHolder.append(BASE_ERROR_MESSAGE +
 								"Problem fitting around " + peak +
 								": " + e.getMessage() + ".\n");
 					}

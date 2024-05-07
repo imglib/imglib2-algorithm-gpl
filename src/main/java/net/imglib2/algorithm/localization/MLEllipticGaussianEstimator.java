@@ -30,7 +30,7 @@ import net.imglib2.Localizable;
 
 
 /**
- * An fit initializer suitable for the fitting of elliptic orthogonal gaussians
+ * A fit initializer suitable for the fitting of elliptic orthogonal gaussians
  * ({@link EllipticGaussianOrtho}, ellipse axes must be parallel to image axes)
  * functions on n-dimensional image data. It uses plain maximum-likelihood
  * estimator for a normal distribution.
@@ -45,7 +45,7 @@ import net.imglib2.Localizable;
  * {@link #initializeFit(Localizable, Observation)} is based on
  * maximum-likelihood estimator for a normal distribution, which requires the
  * background of the image (out of peaks) to be close to 0. Returned parameters
- * are ordered as follow:
+ * are ordered as follows:
  * 
  * <pre>0 → ndims-1		x₀ᵢ
  * ndims.			A

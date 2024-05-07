@@ -41,7 +41,7 @@ import net.imglib2.Localizable;
  * 	<li> They must be able to provide a starting point to the curve fitting solver,
  * based on the image data around the coarse peak location.
  * </ul>
- * Depending on the problem they are taylored for, implementations can be very crude:
+ * Depending on the problem they are tailored for, implementations can be very crude:
  * One can return plain constants if the typical parameters of all peaks are known
  * and uniform. Refined method are also possible. 
  * <p>
@@ -69,7 +69,7 @@ public interface StartPointEstimator {
 	public long[] getDomainSpan();
 	
 	/**
-	 * Returns a new double array containing an starting point estimate for a
+	 * Returns a new double array containing a starting point estimate for a
 	 * specific curve fitting problem. Depending on the implementation, this
 	 * estimate can be calculated from the specified point and the specified
 	 * image data.
